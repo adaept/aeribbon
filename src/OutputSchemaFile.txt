@@ -1,0 +1,28 @@
+Public Sub CreateTheDb()
+
+Dim strSQL As String
+On Error GoTo ErrorTrap
+
+'Local Table
+
+strSQL="CREATE TABLE [tblRibbonPix] ([id] Long,[FileName] Text (255),[binary] OLE Object )"
+Currentdb.Execute strSQL
+
+strSQL="CREATE UNIQUE INDEX [ID] ON [tblRibbonPix] ([binary])  WITH PRIMARY DISALLOW NULL "
+Currentdb.Execute strSQL
+
+'Local Table
+
+strSQL="CREATE TABLE [USysRibbons] ([id] Long,[RibbonName] Text (255),[RibbonXml] Memo )"
+Currentdb.Execute strSQL
+
+strSQL="CREATE UNIQUE INDEX [lngID] ON [USysRibbons] ([RibbonXml])  WITH PRIMARY DISALLOW NULL "
+Currentdb.Execute strSQL
+
+'Access 2010 - Compact And Repair
+SendKeys "%F{END}{ENTER}%F{TAB}{TAB}{ENTER}", False
+Exit Sub
+ErrorTrap:
+MsgBox "Erl=" & vbCrLf & "Err.Number=" & Err.Number & vbCrLf & "Err.Description=" & Err.Description
+
+End Sub

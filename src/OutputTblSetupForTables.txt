@@ -1,0 +1,20 @@
+-------------------
+TABLE: tblRibbonPix
+-------------------
+FIELD NAME     FIELD TYPE            SIZE    DESCRIPTION
+===========    ==================    ====    ===========
+id             Long Integer          4                  
+FileName       Text (fixed width)    255                
+binary         OLE Object            0                  
+
+
+------------------
+TABLE: USysRibbons
+------------------
+FIELD NAME     FIELD TYPE            SIZE    DESCRIPTION
+===========    ==================    ====    ===========
+id             Long Integer          4                  
+RibbonName     Text                  255                
+RibbonXml      Memo                  0                  
+
+

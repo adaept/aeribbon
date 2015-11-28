@@ -1,0 +1,53 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|         id         |     RibbonName     |                                                                       RibbonXml                                                                       |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|                  1 | adaept             | <customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui"                                                                                |
+|                    |                    |     onLoad="OnRibbonLoad"                                                                                                                             |
+|                    |                    |     loadImage="LoadImages">                                                                                                                           |
+|                    |                    |   <ribbon startFromScratch="true">                                                                                                                    |
+|                    |                    |     <tabs>                                                                                                                                            |
+|                    |                    |       <tab id="tab0"                                                                                                                                  |
+|                    |                    |           label="ADAEPT"                                                                                                                              |
+|                    |                    |           getVisible="GetVisible"                                                                                                                     |
+|                    |                    |           tag="RibbonName:=ADAEPT">                                                                                                                   |
+|                    |                    |         <group id="grp0"                                                                                                                              |
+|                    |                    |             autoScale="false"                                                                                                                         |
+|                    |                    |             centerVertically="true"                                                                                                                   |
+|                    |                    |             label="About"                                                                                                                             |
+|                    |                    |             getVisible ="GetVisible">                                                                                                                 |
+|                    |                    |           <button id="btn0"                                                                                                                           |
+|                    |                    |               size="large"                                                                                                                            |
+|                    |                    |               label="adaept"                                                                                                                          |
+|                    |                    |               supertip="adaept information management"                                                                                                |
+|                    |                    |               getImage="GetImages"                                                                                                                    |
+|                    |                    |               tag="RibbonName:=ADAEPT;CustomPicture:=adaept32only.ico;"                                                                               |
+|                    |                    |               onAction="OnActionButton"                                                                                                               |
+|                    |                    |               getVisible="GetVisible"                                                                                                                 |
+|                    |                    |               getEnabled="GetEnabled"/>                                                                                                               |
+|                    |                    |         </group>                                                                                                                                      |
+|                    |                    |       </tab>                                                                                                                                          |
+|                    |                    |     </tabs>                                                                                                                                           |
+|                    |                    |   </ribbon>                                                                                                                                           |
+|                    |                    | </customUI>                                                                                                                                           |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+|                    |                    |                                                                                                                                                       |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

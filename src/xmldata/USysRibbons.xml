@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<xml xmlns:s="uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882" xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:rs="urn:schemas-microsoft-com:rowset" xmlns:z="#RowsetSchema">
+  <s:Schema id="RowsetSchema">
+    <s:ElementType name="row" content="eltOnly" rs:updatable="true">
+      <s:AttributeType name="id" rs:number="1" rs:nullable="true" rs:maydefer="true" rs:write="true" rs:basetable="USysRibbons" rs:basecolumn="id">
+        <s:datatype dt:type="int" dt:maxLength="4" rs:precision="10" rs:fixedlength="true"></s:datatype>
+      </s:AttributeType>
+      <s:AttributeType name="RibbonName" rs:number="2" rs:nullable="true" rs:maydefer="true" rs:write="true" rs:basetable="USysRibbons" rs:basecolumn="RibbonName">
+        <s:datatype dt:type="string" dt:maxLength="255"></s:datatype>
+      </s:AttributeType>
+      <s:AttributeType name="RibbonXml" rs:number="3" rs:nullable="true" rs:maydefer="true" rs:write="true" rs:basetable="USysRibbons" rs:basecolumn="RibbonXml">
+        <s:datatype dt:type="string" dt:maxLength="536870910" rs:long="true"></s:datatype>
+      </s:AttributeType>
+      <s:extends type="rs:rowbase"></s:extends>
+    </s:ElementType>
+  </s:Schema>
+  <rs:data>
+    <z:row id="1" RibbonName="adaept" RibbonXml="&lt;customUI xmlns=&quot;http://schemas.microsoft.com/office/2009/07/customui&quot; &#xA;    onLoad=&quot;OnRibbonLoad&quot;&#xA;    loadImage=&quot;LoadImages&quot;&gt;&#xA;  &lt;ribbon startFromScratch=&quot;true&quot;&gt;&#xA;    &lt;tabs&gt;&#xA;      &lt;tab id=&quot;tab0&quot;&#xA;          label=&quot;ADAEPT&quot;&#xA;          getVisible=&quot;GetVisible&quot;&#xA;          tag=&quot;RibbonName:=ADAEPT&quot;&gt; &#xA;        &lt;group id=&quot;grp0&quot;&#xA;            autoScale=&quot;false&quot;&#xA;            centerVertically=&quot;true&quot;&#xA;            label=&quot;About&quot;&#xA;            getVisible =&quot;GetVisible&quot;&gt;&#xA;          &lt;button id=&quot;btn0&quot;&#xA;              size=&quot;large&quot;&#xA;              label=&quot;adaept&quot;&#xA;              supertip=&quot;adaept information management&quot;&#xA;              getImage=&quot;GetImages&quot;&#xA;              tag=&quot;RibbonName:=ADAEPT;CustomPicture:=adaept32only.ico;&quot;&#xA;              onAction=&quot;OnActionButton&quot;&#xA;              getVisible=&quot;GetVisible&quot;&#xA;              getEnabled=&quot;GetEnabled&quot;/&gt;&#xA;        &lt;/group&gt;&#xA;      &lt;/tab&gt;&#xA;    &lt;/tabs&gt;&#xA;  &lt;/ribbon&gt;&#xA;&lt;/customUI&gt;"></z:row>
+  </rs:data>
+</xml>
+
