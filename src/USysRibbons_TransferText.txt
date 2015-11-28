@@ -1,6 +1,5 @@
 1,"adaept","<customUI xmlns=""http://schemas.microsoft.com/office/2009/07/customui"" 
-    onLoad=""OnRibbonLoad""
-    loadImage=""LoadImages"">
+    onLoad=""OnRibbonLoad"">
   <ribbon startFromScratch=""true"">
     <tabs>
       <tab id=""tab0""

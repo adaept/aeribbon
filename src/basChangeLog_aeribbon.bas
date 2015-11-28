@@ -52,12 +52,16 @@ End Function
 ' %008 -
 ' %007 -
 ' %006 -
-' %005 -
+' %005 - Document changes from blank accdb to minimal app template
 ' %004 - Replace basGDIPlus with latest GDayClass and TimerClass
 ' %003 - Use splash form with aeternity logo, load from binary table?
 ' %002 - Create setup tab form for loading images into the binary table
 ' %001 - Configure code and ribbon to only load pix from internal binary table
+' %000 - Deatiled information for Ribbon development can be found here:
+'           http://www.accessribbon.de/en/index.php?Downloads:12
+'
 '=============================================================================================================================
 '
 '
+'20151128 v002 -
 '20151128 v001 - First version commit, simple ribbon, minimal code
