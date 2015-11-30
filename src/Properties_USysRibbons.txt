@@ -48,7 +48,7 @@
 |------ SourceField >> id
 |------ SourceTable >> USysRibbons
 |------ DataUpdatable >> False
-|------ DefaultValue >> 0
+|------ DefaultValue >> 
 |------ ValidationRule >> 
 |------ ValidationText >> 
 |------ Required >> True

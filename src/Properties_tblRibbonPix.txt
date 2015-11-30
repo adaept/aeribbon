@@ -5,21 +5,11 @@
 |-- Connect >> 
 |-- Attributes >> 0
 |-- SourceTableName >> 
-|-- RecordCount >> 3
+|-- RecordCount >> 1
 |-- ValidationRule >> 
 |-- ValidationText >> 
-|-- DatasheetFontName >> Arial
-|-- DatasheetFontHeight >> 8
-|-- DatasheetFontWeight >> 400
-|-- DatasheetFontItalic >> False
-|-- DatasheetFontUnderline >> False
-|-- TabularCharSet >> 161
-|-- TabularFamily >> 34
 |-- Orientation >> 0
-|-- DatasheetForeColor >> 0
-|-- DatasheetForeColor12 >> 0
 |-- OrderByOn >> False
-|-- NameMap >> NameMap
 |-- DefaultView >> 2
 |-- DisplayViewsOnSharePointSite >> 1
 |-- TotalsRow >> False
@@ -35,8 +25,8 @@
 |-- DatasheetGridlinesThemeColorIndex >> -1
 |-- DatasheetForeThemeColorIndex >> -1
 |-- PublishToWeb >> 1
-|-- GUID >> GUID
 |-- ReadOnlyWhenDisconnected >> False
+|-- GUID >> GUID
 --------------------------------------------------
 |-- id (Field in tblRibbonPix)
 |------ Attributes >> 1
@@ -51,11 +41,11 @@
 |------ DefaultValue >> 
 |------ ValidationRule >> 
 |------ ValidationText >> 
-|------ Required >> False
+|------ Required >> True
 |------ AllowZeroLength >> False
 |------ AppendOnly >> False
 |------ Expression >> 
-|------ ColumnWidth >> -1
+|------ ColumnWidth >> 1215
 |------ ColumnOrder >> 0
 |------ ColumnHidden >> False
 |------ DecimalPlaces >> 255
@@ -64,42 +54,14 @@
 |------ AggregateType >> -1
 |------ ResultType >> 0
 |------ CurrencyLCID >> 0
-|-- FileName (Field in tblRibbonPix)
+|-- Image (Field in tblRibbonPix)
 |------ Attributes >> 1
-|------ CollatingOrder >> 1033
-|------ Type >> 10
-|------ Name >> FileName
+|------ CollatingOrder >> 2
+|------ Type >> 101
+|------ Name >> Image
 |------ OrdinalPosition >> 1
-|------ Size >> 255
-|------ SourceField >> FileName
-|------ SourceTable >> tblRibbonPix
-|------ DataUpdatable >> False
-|------ DefaultValue >> 
-|------ ValidationRule >> 
-|------ ValidationText >> 
-|------ Required >> True
-|------ AllowZeroLength >> True
-|------ AppendOnly >> False
-|------ Expression >> 
-|------ UnicodeCompression >> True
-|------ ColumnWidth >> 12900
-|------ ColumnOrder >> 0
-|------ ColumnHidden >> False
-|------ TextAlign >> 0
-|------ AggregateType >> -1
-|------ CurrencyLCID >> 0
-|------ DisplayControl >> 109
-|------ IMEMode >> 0
-|------ IMESentenceMode >> 3
-|------ ResultType >> 0
-|-- binary (Field in tblRibbonPix)
-|------ Attributes >> 2
-|------ CollatingOrder >> 1033
-|------ Type >> 11
-|------ Name >> binary
-|------ OrdinalPosition >> 2
-|------ Size >> 0
-|------ SourceField >> binary
+|------ Size >> 4
+|------ SourceField >> Image
 |------ SourceTable >> tblRibbonPix
 |------ DataUpdatable >> False
 |------ DefaultValue >> 
@@ -109,10 +71,40 @@
 |------ AllowZeroLength >> False
 |------ AppendOnly >> False
 |------ Expression >> 
+|------ Caption >> Image
+|------ ColumnWidth >> 2490
+|------ ColumnOrder >> 0
+|------ ColumnHidden >> False
+|------ DisplayControl >> 126
+|------ AggregateType >> -1
+|------ ResultType >> 0
+|------ CurrencyLCID >> 0
+|------ Description >> image embedded as attachment
+|-- Category (Field in tblRibbonPix)
+|------ Attributes >> 2
+|------ CollatingOrder >> 1033
+|------ Type >> 10
+|------ Name >> Category
+|------ OrdinalPosition >> 2
+|------ Size >> 255
+|------ SourceField >> Category
+|------ SourceTable >> tblRibbonPix
+|------ DataUpdatable >> False
+|------ DefaultValue >> 
+|------ ValidationRule >> 
+|------ ValidationText >> 
+|------ Required >> False
+|------ AllowZeroLength >> True
+|------ AppendOnly >> False
+|------ Expression >> 
 |------ ColumnWidth >> -1
 |------ ColumnOrder >> 0
 |------ ColumnHidden >> False
+|------ DisplayControl >> 109
+|------ IMEMode >> 0
+|------ IMESentenceMode >> 3
+|------ UnicodeCompression >> True
 |------ TextAlign >> 0
 |------ AggregateType >> -1
-|------ CurrencyLCID >> 0
 |------ ResultType >> 0
+|------ CurrencyLCID >> 0

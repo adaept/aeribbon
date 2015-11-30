@@ -5,10 +5,13 @@ On Error GoTo ErrorTrap
 
 'Local Table
 
-strSQL="CREATE TABLE [tblRibbonPix] ([id] Long,[FileName] Text (255),[binary] OLE Object )"
+strSQL="CREATE TABLE [tblRibbonPix] ([id] Long,[Image] Attachment,[Category] Text (255) )"
 Currentdb.Execute strSQL
 
-strSQL="CREATE UNIQUE INDEX [ID] ON [tblRibbonPix] ([binary])  WITH PRIMARY DISALLOW NULL "
+strSQL="CREATE INDEX [ID] ON [tblRibbonPix] ([Category]) "
+Currentdb.Execute strSQL
+
+strSQL="CREATE UNIQUE INDEX [PrimaryKey] ON [tblRibbonPix] ([Category])  WITH PRIMARY DISALLOW NULL "
 Currentdb.Execute strSQL
 
 'Local Table

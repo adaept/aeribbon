@@ -2,21 +2,19 @@
     onLoad=""OnRibbonLoad"">
   <ribbon startFromScratch=""true"">
     <tabs>
-      <tab id=""tab0""
+      <tab id=""tab1""
           label=""ADAEPT""
-          getVisible=""GetVisible""
-          tag=""RibbonName:=ADAEPT""> 
-        <group id=""grp0""
+          getVisible=""GetVisible""> 
+        <group id=""grp1""
             autoScale=""false""
             centerVertically=""true""
             label=""About""
             getVisible =""GetVisible"">
-          <button id=""btn0""
+          <button id=""btn1""
               size=""large""
               label=""adaept""
               supertip=""adaept information management""
-              getImage=""GetImages""
-              tag=""RibbonName:=ADAEPT;CustomPicture:=adaept32only.ico;""
+              getImage=""SetImage""
               onAction=""OnActionButton""
               getVisible=""GetVisible""
               getEnabled=""GetEnabled""/>

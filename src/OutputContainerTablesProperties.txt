@@ -7,18 +7,8 @@
               Container     Tables
               DateCreated   DateCreated
               LastUpdated   LastUpdated
-              DatasheetFontName           Arial
-              DatasheetFontHeight          8 
-              DatasheetFontWeight          400 
-              DatasheetFontItalic         False
-              DatasheetFontUnderline      False
-              TabularCharSet               161 
-              TabularFamily  34 
               Orientation    0 
-              DatasheetForeColor           0 
-              DatasheetForeColor12         0 
               OrderByOn     False
-              NameMap       Track name AutoCorrect info is ON!
               DefaultView    2 
               DisplayViewsOnSharePointSite               1 
               TotalsRow     False
@@ -34,8 +24,8 @@
               DatasheetGridlinesThemeColorIndex         -1 
               DatasheetForeThemeColorIndex              -1 
               PublishToWeb   1 
-              GUID          3D-B1-30-B3-F4-A4-4E-AB
               ReadOnlyWhenDisconnected    False
+              GUID          F7-21-1B-AB-93-60-4F-91
 >>>USysRibbons
               Name          USysRibbons
               Owner         admin

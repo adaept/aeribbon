@@ -23,7 +23,7 @@ Public Const THE_BACK_END_XML_DATA_FOLDER = "NONE"         ' ".\srcbe\xmldata\"
 'Public Const THE_BACK_END_XML_DATA_FOLDER = "C:\THE\DATABASE\PATH\srcbe\xmldata\"   ' ".\srcbe\xmldata\
 '
 Public Const gconTHIS_APP_VERSION As String = "0.0.2"
-Public Const gconTHIS_APP_VERSION_DATE = "November 28, 2015"
+Public Const gconTHIS_APP_VERSION_DATE = "November 29, 2015"
 Public Const gconTHIS_APP_NAME = "aeribbon"
 
 Public Function aeribbon_EXPORT(Optional ByVal varDebug As Variant) As Boolean
@@ -53,15 +53,15 @@ End Function
 ' %007 -
 ' %006 -
 ' %005 - Document changes from blank accdb to minimal app template
-' %004 - Replace basGDIPlus with latest GDayClass and TimerClass
-' %003 - Use splash form with aeternity logo, load from binary table?
-' %002 - Create setup tab form for loading images into the binary table
-' %001 - Configure code and ribbon to only load pix from internal binary table
-' %000 - Deatiled information for Ribbon development can be found here:
+' %003 - Use splash form with aeternity logo, load from attachment table
+' %002 - Create setup tab form for loading images into the attachment table
+' %000 - Detailed information for Ribbon development can be found here:
 '           http://www.accessribbon.de/en/index.php?Downloads:12
 '
 '=============================================================================================================================
 '
 '
-'20151128 v002 -
+'20151129 v002 -
+    ' FIXED - %004 - Replace basGDIPlus with latest GDayClass and TimerClass
+    ' FIXED - %001 - Configure code and ribbon to only load pix from internal image attachment table
 '20151128 v001 - First version commit, simple ribbon, minimal code
