@@ -1,11 +1,11 @@
-|-- Name >> tblRibbonPix
-|-- Updatable >> True
+|-- Name >> _tblPersist
+|-- Updatable >> False
 |-- DateCreated >> DateCreated
 |-- LastUpdated >> LastUpdated
-|-- Connect >> 
-|-- Attributes >> 0
-|-- SourceTableName >> 
-|-- RecordCount >> 1
+|-- Connect >> ;DATABASE=C:\ae\aegit\SVIPDB_DATA.accdb
+|-- Attributes >> 1073741824
+|-- SourceTableName >> _tblPersist
+|-- RecordCount >> -1
 |-- ValidationRule >> 
 |-- ValidationText >> 
 |-- ConflictTable >> 
@@ -13,6 +13,7 @@
 |-- Orientation >> 0
 |-- OrderByOn >> False
 |-- DefaultView >> 2
+|-- GUID >> GUID
 |-- DisplayViewsOnSharePointSite >> 1
 |-- TotalsRow >> False
 |-- FilterOnLoad >> False
@@ -20,77 +21,48 @@
 |-- HideNewField >> False
 |-- BackTint >> 100
 |-- BackShade >> 100
-|-- ThemeFontIndex >> -1
-|-- AlternateBackThemeColorIndex >> -1
+|-- ThemeFontIndex >> 1
+|-- AlternateBackThemeColorIndex >> 1
 |-- AlternateBackTint >> 100
-|-- AlternateBackShade >> 100
-|-- DatasheetGridlinesThemeColorIndex >> -1
-|-- DatasheetForeThemeColorIndex >> -1
-|-- PublishToWeb >> 1
+|-- AlternateBackShade >> 95
 |-- ReadOnlyWhenDisconnected >> False
-|-- GUID >> GUID
+|-- DatasheetGridlinesThemeColorIndex >> 3
+|-- DatasheetForeThemeColorIndex >> 0
+|-- PublishToWeb >> 1
 --------------------------------------------------
-|-- id (Field in tblRibbonPix)
-|------ Attributes >> 1
+|-- id (Field in _tblPersist)
+|------ Attributes >> 17
 |------ CollatingOrder >> 1033
 |------ Type >> 4
 |------ Name >> id
 |------ OrdinalPosition >> 0
 |------ Size >> 4
 |------ SourceField >> id
-|------ SourceTable >> tblRibbonPix
+|------ SourceTable >> _tblPersist
 |------ DataUpdatable >> False
 |------ DefaultValue >> 
 |------ ValidationRule >> 
 |------ ValidationText >> 
-|------ Required >> True
+|------ Required >> False
 |------ AllowZeroLength >> False
 |------ AppendOnly >> False
 |------ Expression >> 
-|------ ColumnWidth >> 1215
+|------ ColumnWidth >> -1
 |------ ColumnOrder >> 0
 |------ ColumnHidden >> False
-|------ DecimalPlaces >> 255
-|------ DisplayControl >> 109
 |------ TextAlign >> 0
 |------ AggregateType >> -1
 |------ ResultType >> 0
 |------ CurrencyLCID >> 0
-|-- Image (Field in tblRibbonPix)
-|------ Attributes >> 1
-|------ CollatingOrder >> 2
-|------ Type >> 101
-|------ Name >> Image
-|------ OrdinalPosition >> 1
-|------ Size >> 4
-|------ SourceField >> Image
-|------ SourceTable >> tblRibbonPix
-|------ DataUpdatable >> False
-|------ DefaultValue >> 
-|------ ValidationRule >> 
-|------ ValidationText >> 
-|------ Required >> True
-|------ AllowZeroLength >> False
-|------ AppendOnly >> False
-|------ Expression >> 
-|------ Caption >> Image
-|------ ColumnWidth >> 2490
-|------ ColumnOrder >> 0
-|------ ColumnHidden >> False
-|------ DisplayControl >> 126
-|------ AggregateType >> -1
-|------ ResultType >> 0
-|------ CurrencyLCID >> 0
-|------ Description >> image embedded as attachment
-|-- Category (Field in tblRibbonPix)
+|-- persist (Field in _tblPersist)
 |------ Attributes >> 2
 |------ CollatingOrder >> 1033
 |------ Type >> 10
-|------ Name >> Category
-|------ OrdinalPosition >> 2
+|------ Name >> persist
+|------ OrdinalPosition >> 1
 |------ Size >> 255
-|------ SourceField >> Category
-|------ SourceTable >> tblRibbonPix
+|------ SourceField >> persist
+|------ SourceTable >> _tblPersist
 |------ DataUpdatable >> False
 |------ DefaultValue >> 
 |------ ValidationRule >> 

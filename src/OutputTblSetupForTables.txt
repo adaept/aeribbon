@@ -1,20 +1,51 @@
+------------------
+TABLE: _tblPersist
+------------------
+Linked=>C:\ae\aegit\SVIPDB_DATA.accdb
+FIELD NAME           FIELD TYPE      SIZE    DESCRIPTION
+=================    ============    ====    ===========
+id                   AutoNumber      4                  
+persist              Text            255                
+
+
+------------------
+TABLE: _versionApp
+------------------
+FIELD NAME           FIELD TYPE      SIZE    DESCRIPTION
+=================    ============    ====    ===========
+id                   AutoNumber      4                  
+expectedDbVersion    Text            12                 
+appVersion           Text            12                 
+updatedDate          Date/Time       8       =now()     
+
+
+-------------------
+TABLE: _versionData
+-------------------
+FIELD NAME           FIELD TYPE      SIZE    DESCRIPTION
+=================    ============    ====    ===========
+id                   AutoNumber      4                  
+dbVersion            Text            12                 
+UpdatedDate          Date/Time       8       =now()     
+
+
 -------------------
 TABLE: tblRibbonPix
 -------------------
-FIELD NAME     FIELD TYPE      SIZE    DESCRIPTION                 
-===========    ============    ====    ============================
-id             Long Integer    4                                   
-Image          Attachment      4       image embedded as attachment
-Category       Text            255                                 
+FIELD NAME           FIELD TYPE      SIZE    DESCRIPTION                 
+=================    ============    ====    ============================
+id                   Long Integer    4                                   
+Image                Attachment      4       image embedded as attachment
+Category             Text            255                                 
 
 
 ------------------
 TABLE: USysRibbons
 ------------------
-FIELD NAME     FIELD TYPE      SIZE    DESCRIPTION
-===========    ============    ====    ===========
-id             Long Integer    4                  
-RibbonName     Text            255                
-RibbonXml      Memo            0                  
+FIELD NAME           FIELD TYPE      SIZE    DESCRIPTION
+=================    ============    ====    ===========
+id                   Long Integer    4                  
+RibbonName           Text            255                
+RibbonXml            Memo            0                  
 
 

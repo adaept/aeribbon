@@ -22,9 +22,24 @@ Public Const THE_BACK_END_XML_DATA_FOLDER = "NONE"         ' ".\srcbe\xmldata\"
 'Public Const THE_BACK_END_XML_FOLDER = "C:\THE\DATABASE\PATH\srcbe\xml\"            ' ".\srcbe\xml\"
 'Public Const THE_BACK_END_XML_DATA_FOLDER = "C:\THE\DATABASE\PATH\srcbe\xmldata\"   ' ".\srcbe\xmldata\
 '
-Public Const gconTHIS_APP_VERSION As String = "0.0.2"
-Public Const gconTHIS_APP_VERSION_DATE = "November 29, 2015"
+Public Const gconTHIS_APP_VERSION As String = "0.0.3"
+Public Const gconTHIS_APP_VERSION_DATE = "December 3, 2015"
 Public Const gconTHIS_APP_NAME = "aeribbon"
+
+Public Function getMyVersion() As String
+    On Error GoTo 0
+    getMyVersion = gconTHIS_APP_VERSION
+End Function
+
+Public Function getMyDate() As String
+    On Error GoTo 0
+    getMyDate = gconTHIS_APP_VERSION_DATE
+End Function
+
+Public Function getMyProject() As String
+    On Error GoTo 0
+    getMyProject = gconTHIS_APP_NAME
+End Function
 
 Public Function aeribbon_EXPORT(Optional ByVal varDebug As Variant) As Boolean
 
@@ -51,9 +66,8 @@ End Function
 ' %009 -
 ' %008 -
 ' %007 -
-' %006 -
+' %006 - Load logo from attachment table
 ' %005 - Document changes from blank accdb to minimal app template
-' %003 - Use splash form with aeternity logo, load from attachment table
 ' %002 - Create setup tab form for loading images into the attachment table
 ' %000 - Detailed information for Ribbon development can be found here:
 '           http://www.accessribbon.de/en/index.php?Downloads:12
@@ -61,6 +75,8 @@ End Function
 '=============================================================================================================================
 '
 '
+'20151203 v003 -
+    ' FIXED - %003 - Use splash form with aeternity logo
 '20151129 v002 -
     ' FIXED - %004 - Replace basGDIPlus with latest GDayClass and TimerClass
     ' FIXED - %001 - Configure code and ribbon to only load pix from internal image attachment table

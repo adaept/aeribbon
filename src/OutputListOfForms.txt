@@ -1,1 +1,3 @@
 "Name","Attribute"
+"_frmPersist","Hidden"
+"frmSplash","Visible"

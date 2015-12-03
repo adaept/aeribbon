@@ -3,6 +3,39 @@ Public Sub CreateTheDb()
 Dim strSQL As String
 On Error GoTo ErrorTrap
 
+'OriginalLink=>C:\ae\aegit\SVIPDB_DATA.accdb
+
+strSQL="CREATE TABLE [_tblPersist] ([id] Counter,[persist] Text (255) )"
+Currentdb.Execute strSQL
+
+strSQL="CREATE INDEX [id] ON [_tblPersist] ([persist]) "
+Currentdb.Execute strSQL
+
+strSQL="CREATE UNIQUE INDEX [PrimaryKey] ON [_tblPersist] ([persist])  WITH PRIMARY DISALLOW NULL "
+Currentdb.Execute strSQL
+
+'Local Table
+
+strSQL="CREATE TABLE [_versionApp] ([id] Counter,[expectedDbVersion] Text (12),[appVersion] Text (12),[updatedDate] DateTime )"
+Currentdb.Execute strSQL
+
+strSQL="CREATE UNIQUE INDEX [PrimaryKey] ON [_versionApp] ([updatedDate])  WITH PRIMARY DISALLOW NULL "
+Currentdb.Execute strSQL
+
+strSQL="CREATE INDEX [VersionID] ON [_versionApp] ([updatedDate]) "
+Currentdb.Execute strSQL
+
+'Local Table
+
+strSQL="CREATE TABLE [_versionData] ([id] Counter,[dbVersion] Text (12),[UpdatedDate] DateTime )"
+Currentdb.Execute strSQL
+
+strSQL="CREATE UNIQUE INDEX [PrimaryKey] ON [_versionData] ([UpdatedDate])  WITH PRIMARY DISALLOW NULL "
+Currentdb.Execute strSQL
+
+strSQL="CREATE INDEX [VersionID] ON [_versionData] ([UpdatedDate]) "
+Currentdb.Execute strSQL
+
 'Local Table
 
 strSQL="CREATE TABLE [tblRibbonPix] ([id] Long,[Image] Attachment,[Category] Text (255) )"

@@ -1,4 +1,4 @@
-|-- Name >> USysRibbons
+|-- Name >> _versionApp
 |-- Updatable >> True
 |-- DateCreated >> DateCreated
 |-- LastUpdated >> LastUpdated
@@ -10,8 +10,6 @@
 |-- ValidationText >> 
 |-- ConflictTable >> 
 |-- ReplicaFilter >> 
-|-- GUID >> GUID
-|-- RowHeight >> 7860
 |-- Orientation >> 0
 |-- OrderByOn >> False
 |-- DefaultView >> 2
@@ -22,59 +20,48 @@
 |-- HideNewField >> False
 |-- BackTint >> 100
 |-- BackShade >> 100
-|-- ThemeFontIndex >> -1
-|-- AlternateBackThemeColorIndex >> -1
+|-- ThemeFontIndex >> 1
+|-- AlternateBackThemeColorIndex >> 1
 |-- AlternateBackTint >> 100
-|-- AlternateBackShade >> 100
+|-- AlternateBackShade >> 95
 |-- ReadOnlyWhenDisconnected >> False
-|-- DatasheetGridlinesThemeColorIndex >> -1
-|-- DatasheetForeThemeColorIndex >> -1
+|-- DatasheetGridlinesThemeColorIndex >> 3
+|-- DatasheetForeThemeColorIndex >> 0
 |-- PublishToWeb >> 1
-|-- DatasheetFontName >> Consolas
-|-- DatasheetFontHeight >> 11
-|-- DatasheetFontWeight >> 400
-|-- DatasheetFontItalic >> False
-|-- DatasheetFontUnderline >> False
-|-- TabularCharSet >> 0
-|-- TabularFamily >> 49
-|-- DatasheetForeColor >> 0
-|-- DatasheetForeColor12 >> 0
 --------------------------------------------------
-|-- id (Field in USysRibbons)
-|------ Attributes >> 1
+|-- id (Field in _versionApp)
+|------ Attributes >> 17
 |------ CollatingOrder >> 1033
 |------ Type >> 4
 |------ Name >> id
 |------ OrdinalPosition >> 0
 |------ Size >> 4
 |------ SourceField >> id
-|------ SourceTable >> USysRibbons
+|------ SourceTable >> _versionApp
 |------ DataUpdatable >> False
 |------ DefaultValue >> 
 |------ ValidationRule >> 
 |------ ValidationText >> 
-|------ Required >> True
+|------ Required >> False
 |------ AllowZeroLength >> False
 |------ AppendOnly >> False
 |------ Expression >> 
 |------ ColumnWidth >> -1
 |------ ColumnOrder >> 1
 |------ ColumnHidden >> False
-|------ DecimalPlaces >> 255
-|------ DisplayControl >> 109
 |------ TextAlign >> 0
 |------ AggregateType >> -1
 |------ ResultType >> 0
 |------ CurrencyLCID >> 0
-|-- RibbonName (Field in USysRibbons)
+|-- expectedDbVersion (Field in _versionApp)
 |------ Attributes >> 2
 |------ CollatingOrder >> 1033
 |------ Type >> 10
-|------ Name >> RibbonName
+|------ Name >> expectedDbVersion
 |------ OrdinalPosition >> 1
-|------ Size >> 255
-|------ SourceField >> RibbonName
-|------ SourceTable >> USysRibbons
+|------ Size >> 12
+|------ SourceField >> expectedDbVersion
+|------ SourceTable >> _versionApp
 |------ DataUpdatable >> False
 |------ DefaultValue >> 
 |------ ValidationRule >> 
@@ -83,27 +70,26 @@
 |------ AllowZeroLength >> True
 |------ AppendOnly >> False
 |------ Expression >> 
-|------ GUID >> GUID
 |------ ColumnWidth >> -1
 |------ ColumnOrder >> 0
 |------ ColumnHidden >> False
-|------ TextAlign >> 0
-|------ AggregateType >> -1
-|------ CurrencyLCID >> 0
 |------ DisplayControl >> 109
 |------ IMEMode >> 0
 |------ IMESentenceMode >> 3
 |------ UnicodeCompression >> False
+|------ TextAlign >> 0
+|------ AggregateType >> -1
 |------ ResultType >> 0
-|-- RibbonXml (Field in USysRibbons)
+|------ CurrencyLCID >> 0
+|-- appVersion (Field in _versionApp)
 |------ Attributes >> 2
 |------ CollatingOrder >> 1033
-|------ Type >> 12
-|------ Name >> RibbonXml
+|------ Type >> 10
+|------ Name >> appVersion
 |------ OrdinalPosition >> 2
-|------ Size >> 0
-|------ SourceField >> RibbonXml
-|------ SourceTable >> USysRibbons
+|------ Size >> 12
+|------ SourceField >> appVersion
+|------ SourceTable >> _versionApp
 |------ DataUpdatable >> False
 |------ DefaultValue >> 
 |------ ValidationRule >> 
@@ -112,15 +98,42 @@
 |------ AllowZeroLength >> True
 |------ AppendOnly >> False
 |------ Expression >> 
-|------ GUID >> GUID
-|------ ColumnWidth >> 11925
+|------ ColumnWidth >> -1
 |------ ColumnOrder >> 0
 |------ ColumnHidden >> False
-|------ TextAlign >> 0
-|------ AggregateType >> -1
-|------ CurrencyLCID >> 0
+|------ DisplayControl >> 109
 |------ IMEMode >> 0
 |------ IMESentenceMode >> 3
-|------ UnicodeCompression >> False
-|------ TextFormat >> 0
+|------ UnicodeCompression >> True
+|------ TextAlign >> 0
+|------ AggregateType >> -1
 |------ ResultType >> 0
+|------ CurrencyLCID >> 0
+|-- updatedDate (Field in _versionApp)
+|------ Attributes >> 1
+|------ CollatingOrder >> 1033
+|------ Type >> 8
+|------ Name >> updatedDate
+|------ OrdinalPosition >> 3
+|------ Size >> 8
+|------ SourceField >> updatedDate
+|------ SourceTable >> _versionApp
+|------ DataUpdatable >> False
+|------ DefaultValue >> =Now()
+|------ ValidationRule >> 
+|------ ValidationText >> 
+|------ Required >> True
+|------ AllowZeroLength >> False
+|------ AppendOnly >> False
+|------ Expression >> 
+|------ ColumnWidth >> 4905
+|------ ColumnOrder >> 0
+|------ ColumnHidden >> False
+|------ IMEMode >> 0
+|------ IMESentenceMode >> 3
+|------ TextAlign >> 0
+|------ AggregateType >> -1
+|------ ShowDatePicker >> 1
+|------ ResultType >> 0
+|------ CurrencyLCID >> 0
+|------ Description >> =now()

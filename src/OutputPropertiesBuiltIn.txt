@@ -125,7 +125,7 @@ Inherited: False;
 ---
 Name: ProjVer
 Type: dbInteger
-Value: 140
+Value: 119
 Inherited: False;
 ---
 Name: HasOfflineLists
@@ -251,5 +251,10 @@ Inherited: False;
 Name: Perform Name AutoCorrect
 Type: dbLong
 Value: 0
+Inherited: False;
+---
+Name: StartUpForm
+Type: dbText
+Value: frmSplash
 Inherited: False;
 ---
