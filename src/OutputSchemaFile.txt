@@ -3,7 +3,7 @@ Public Sub CreateTheDb()
 Dim strSQL As String
 On Error GoTo ErrorTrap
 
-'OriginalLink=>C:\ae\aegit\SVIPDB_DATA.accdb
+'Local Table
 
 strSQL="CREATE TABLE [_tblPersist] ([id] Counter,[persist] Text (255) )"
 Currentdb.Execute strSQL

@@ -1,7 +1,6 @@
 ------------------
 TABLE: _tblPersist
 ------------------
-Linked=>C:\ae\aegit\SVIPDB_DATA.accdb
 FIELD NAME           FIELD TYPE      SIZE    DESCRIPTION
 =================    ============    ====    ===========
 id                   AutoNumber      4                  

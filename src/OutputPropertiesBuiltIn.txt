@@ -125,7 +125,7 @@ Inherited: False;
 ---
 Name: ProjVer
 Type: dbInteger
-Value: 119
+Value: 140
 Inherited: False;
 ---
 Name: HasOfflineLists
@@ -160,7 +160,7 @@ Inherited: False;
 ---
 Name: StartUpShowDBWindow
 Type: dbBoolean
-Value: False
+Value: True
 Inherited: False;
 ---
 Name: StartUpShowStatusBar

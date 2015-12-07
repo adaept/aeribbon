@@ -22,8 +22,8 @@ Public Const THE_BACK_END_XML_DATA_FOLDER = "NONE"         ' ".\srcbe\xmldata\"
 'Public Const THE_BACK_END_XML_FOLDER = "C:\THE\DATABASE\PATH\srcbe\xml\"            ' ".\srcbe\xml\"
 'Public Const THE_BACK_END_XML_DATA_FOLDER = "C:\THE\DATABASE\PATH\srcbe\xmldata\"   ' ".\srcbe\xmldata\
 '
-Public Const gconTHIS_APP_VERSION As String = "0.0.3"
-Public Const gconTHIS_APP_VERSION_DATE = "December 3, 2015"
+Public Const gconTHIS_APP_VERSION As String = "0.0.4"
+Public Const gconTHIS_APP_VERSION_DATE = "December 6, 2015"
 Public Const gconTHIS_APP_NAME = "aeribbon"
 
 Public Function getMyVersion() As String
@@ -64,9 +64,8 @@ End Function
 ' Tasks:
 ' %010 -
 ' %009 -
-' %008 -
-' %007 -
-' %006 - Load logo from attachment table
+' %008 - Debug fade code for splash form
+' %006 - Load app logo from attachment table into splash form
 ' %005 - Document changes from blank accdb to minimal app template
 ' %002 - Create setup tab form for loading images into the attachment table
 ' %000 - Detailed information for Ribbon development can be found here:
@@ -75,6 +74,8 @@ End Function
 '=============================================================================================================================
 '
 '
+'20151206 v004 -
+    ' FIXED - %007 - Add code to allow switch between fade and no fade
 '20151203 v003 -
     ' FIXED - %003 - Use splash form with aeternity logo
 '20151129 v002 -

@@ -5,11 +5,9 @@
 |-- Connect >> 
 |-- Attributes >> 0
 |-- SourceTableName >> 
-|-- RecordCount >> 1
+|-- RecordCount >> 2
 |-- ValidationRule >> 
 |-- ValidationText >> 
-|-- ConflictTable >> 
-|-- ReplicaFilter >> 
 |-- Orientation >> 0
 |-- OrderByOn >> False
 |-- DefaultView >> 2

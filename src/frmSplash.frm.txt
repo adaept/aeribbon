@@ -24,9 +24,9 @@ Begin Form
     DatasheetFontHeight =11
     ItemSuffix =19
     Left =3225
-    Top =2430
-    Right =28545
-    Bottom =15015
+    Top =2610
+    Right =23745
+    Bottom =12645
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xaaa2651a378ce440
@@ -35,6 +35,7 @@ Begin Form
         0xe973148ae07bea4e9608358b23e657c3
     End
     RecordSource ="qryVersionApp"
+    OnCurrent ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
     End
@@ -43,6 +44,7 @@ Begin Form
     PrtDevNames = Begin
     End
     OnTimer ="[Event Procedure]"
+    OnActivate ="[Event Procedure]"
     OnLoad ="[Event Procedure]"
     AllowDatasheetView =0
     FilterOnLoad =0
@@ -13242,16 +13244,37 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
+Private Declare Function DrawMenuBar Lib "user32" (ByVal hWnd As Long) As Long
+Private Declare Function GetActiveWindow Lib "user32" () As Long
+Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long, ByVal dwNewLong As Long) As Long
+Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long) As Long
+Private Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As Long, ByVal crKey As Integer, ByVal bAlpha As Integer, ByVal dwFlags As Long) As Long
+
+Private Const GWL_STYLE = (-16)
+Private Const WS_SYSMENU = &H80000
+Private Const WS_EX_LAYERED = &H80000
+Private Const LWA_ALPHA = &H2
+Private Const GWL_EXSTYLE = &HFFEC
+
+Public zzzhWnd As Long
+Private Transparancy As Integer
+Private Running As Boolean
+Private dEtime As Date
+
+' Form Fade Ref: http://www.vbaexpress.com/forum/member.php?u=135
+Private mlngStart As Long
+Private mlngPauseTime As Integer
 Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal lngMilliSeconds As Long)
 
-Private gintC As Integer
-Private i As Long
 Private Const mintTIMERINTERVAL = 10
 Private Const mblnDISABLESHIFT = False
+Private Const mblnFADE = False
 Private mblnClose As Boolean
 
 Public Function IsDeveloper() As Boolean
-' Allow only the developers to use the shift key during startup
+' Allow only developers to use the shift key during startup
+    Debug.Print "IsDeveloper"
+
     Dim UserName As String
     IsDeveloper = False
     UserName = VBA.Environ("Username")
@@ -13269,11 +13292,12 @@ End Function
 
 Private Function DisableShiftKey()
 
+    Debug.Print "DisableShiftKey"
     On Error GoTo PROC_ERR
 
     Dim dbs As DAO.Database
-    Dim prop As DAO.Property
-    Const conPropNotFound = 3270
+    Dim prp As DAO.Property
+    Const conPROPNOTFOUND = 3270
 
     Set dbs = CurrentDb()
 
@@ -13304,14 +13328,14 @@ PROC_EXIT:
     Exit Function
 
 PROC_ERR:
-    If Err = conPropNotFound Then
-        ' Create the "AllowByPassKey" property if it does not exist
-        Set prop = dbs.CreateProperty("AllowByPassKey", dbBoolean, False)
-        dbs.Properties.Append prop
+    If Err = conPROPNOTFOUND Then
+        ' Create the AllowByPassKey property if it does not exist
+        Set prp = dbs.CreateProperty("AllowByPassKey", dbBoolean, False)
+        dbs.Properties.Append prp
         Resume Next
     Else
-        MsgBox "Erl=" & Erl & " Error " & Err.Number & " (" & Err.description & ")" & vbCrLf & _
-            "Function DisableShiftKey did not complete successfully." & vbCrLf & _
+        MsgBox "Erl=" & Erl & " Err=" & Err & " " & Err.description & vbCrLf & _
+            "DisableShiftKey did not complete successfully." & vbCrLf & _
             "Please contact your system administrator.", vbCritical, gconTHIS_APP_NAME
         Resume PROC_EXIT
     End If
@@ -13331,6 +13355,8 @@ End Sub
 
 Private Function GetErrorTrappingOption() As String
 ' Ref: http://www.fmsinc.com/tpapers/vbacode/debug.asp
+    Debug.Print "GetErrorTrappingOption"
+
     Dim strSetting As String
     Select Case Application.GetOption("Error Trapping")
         Case 0
@@ -13343,8 +13369,123 @@ Private Function GetErrorTrappingOption() As String
     GetErrorTrappingOption = strSetting
 End Function
 
-Private Sub Form_Load()
+Private Sub Transparency()
+    Debug.Print "Transparency"
 
+    Dim MyTimer As Double
+
+    DoEvents
+    MyTimer = Timer
+    Do
+        Do
+            Debug.Print "MyTimer = " & MyTimer
+            Debug.Print "Timer = " & Timer
+        Loop While Timer - MyTimer < 0.07
+        MyTimer = Timer
+        Transparancy = Transparancy - 1
+        If Transparancy < 0 Then
+            '''Unload Me
+            DoCmd.Close
+        Else
+            '''Call SemiTransparent(Application.WorksheetFunction.Min(Transparancy, 99))
+            SemiTransparent Transparancy
+        End If
+        DoEvents
+    Loop While Running
+
+End Sub
+
+Private Sub SemiTransparent(ByVal intLevel As Integer)
+    Debug.Print "SemiTransparent"
+
+    Dim lngWinIdx As Long
+
+    hWnd = GetActiveWindow()
+    Debug.Print , "hWnd = " & hWnd
+    lngWinIdx = GetWindowLong(hWnd, GWL_EXSTYLE)
+    SetWindowLong hWnd, GWL_EXSTYLE, lngWinIdx Or WS_EX_LAYERED
+    SetLayeredWindowAttributes hWnd, 0, (255 * intLevel) / 100, LWA_ALPHA
+    Stop
+
+End Sub
+
+Private Sub RemoveSysMenu(Optional ByVal lngHwnd As Variant)
+' Ref: http://puremis.net/excel/code/062.shtml
+    On Error GoTo 0
+    Debug.Print "RemoveSysMenu"
+    Debug.Print , "lngHwnd = " & lngHwnd
+
+    Dim lRet As Long
+    Dim hWnd As Long
+    Dim lwnd_style As Long
+
+    If Not IsMissing(lngHwnd) Then
+        hWnd = lngHwnd
+    Else
+        hWnd = GetActiveWindow()
+        Debug.Print , "hWnd = " & hWnd
+    End If
+
+    lwnd_style = GetWindowLong(hWnd, GWL_STYLE)
+    lwnd_style = lwnd_style And (Not WS_SYSMENU)
+    lRet = SetWindowLong(hWnd, GWL_STYLE, lwnd_style)
+    lRet = DrawMenuBar(hWnd)
+    Debug.Print "RemoveSysMenu End Sub"
+End Sub
+
+Private Sub MakeSysMenuDefaultAgain()
+    Debug.Print "MakeSysMenuDefaultAgain"
+    Dim lRet As Long
+    Dim hWnd As Long
+    Dim lwnd_style As Long
+    hWnd = GetActiveWindow()
+    lwnd_style = GetWindowLong(hWnd, GWL_STYLE)
+    lwnd_style = lwnd_style Or WS_SYSMENU
+    lRet = SetWindowLong(hWnd, GWL_STYLE, lwnd_style)
+    lRet = DrawMenuBar(hWnd)
+End Sub
+
+Private Sub Form_Activate()
+    ' NOTE: Activate/Deactivate events do not happen for popup form
+    Debug.Print "Form_Activate"
+End Sub
+
+Private Sub Form_Current()
+    Debug.Print "Form_Current"
+
+    If mblnFADE Then
+        ' Do not use form timer for fading
+        Me.TimerInterval = 0
+'''        RemoveSysMenu
+
+        mlngPauseTime = 5       ' Set duration.
+        mlngStart = Timer       ' Set start time.
+        Transparancy = 99
+
+        SemiTransparent 99
+        DoEvents
+
+        Do While Timer < mlngStart + mlngPauseTime
+            DoEvents            ' Yield to other processes.
+            Running = True
+            Transparency
+        Loop
+
+        DoCmd.Close
+        DoEvents
+    End If
+End Sub
+
+Private Sub Form_Load()
+' Reference: Microsoft Knowledge Base Article Q213774, XL2000 - How to Create a Startup Screen with a UserForm
+' Who:  Peter Ennis
+' Date: 04/06/2007 - Add error checking code to track down 1004 on splash form close
+'       04/15/2007 - Use gblnClockOn for starting the clock
+'       05/03/2007 - Remove gblnClockOn. cmd30 now used
+'       02/15/2010 - Modify for aeChart
+'       12/06/2015 - Modify to use transparency in Access
+
+    Debug.Print "Form_Load"
     On Error GoTo PROC_ERR
 
     If mblnDISABLESHIFT Then DisableShiftKey
@@ -13359,33 +13500,42 @@ Private Sub Form_Load()
     Else
         Me.txtErrorTrapping.visible = False
     End If
-    '
+
     'DebugStart
     'SafeStart
     UnhandledStart
-    '
-    DoCmd.OpenForm "_frmPersist", acNormal, , , acFormReadOnly, acHidden
-    '
+
+    ' This is used to keep a connection if a backend database is used
+    'DoCmd.OpenForm "_frmPersist", acNormal, , , acFormReadOnly, acHidden
+
     Me.txtErrorTrapping.ControlSource = "=GetErrorTrappingOption()"
     Me.txtDbVersion.Value = DLookup("dbVersion", "qryVersionData")
     CheckDataVersion
     'CheckDeveloperKey
-    Me.TimerInterval = mintTIMERINTERVAL
-    '
+
     Me.txtGetMyDate = getMyDate()
     Me.txtGetMyProject = getMyProject()
+
+    If Not mblnFADE Then Me.TimerInterval = mintTIMERINTERVAL
 
 PROC_EXIT:
     Exit Sub
 
 PROC_ERR:
-    Resume PROC_EXIT
+    If Err = 1004 Then
+        MsgBox "Erl=" & Erl & " Err=" & Err & " " & Err.description, vbCritical, "Form_Load Error"
+        Resume PROC_EXIT
+    Else
+        Resume PROC_EXIT
+    End If
 
 End Sub
 
 Private Sub Form_Timer()
-
+    Debug.Print "Form_Timer"
     On Error GoTo PROC_ERR
+
+    If mblnFADE Then Exit Sub
 
     Dim dteTime As Date
     dteTime = DateAdd("s", mintTIMERINTERVAL, Now)
@@ -13406,10 +13556,16 @@ PROC_ERR:
 End Sub
 
 Private Sub imgSplash_Click()
+    Debug.Print "imgSplash_Click"
+    If mblnFADE Then
+        Running = False
+        DoCmd.Close
+    End If
     mblnClose = True
 End Sub
 
 Private Sub CheckDataVersion()
+    Debug.Print "CheckDataVersion"
     If (Me.txtDbVersion.Value <> Me.txtExpectedDbVersion.Value) Then
         MsgBox "Application expecting Database Version " & Me.txtExpectedDbVersion.Value & vbCrLf & _
             "Please contact your database administrator to update the application!", vbCritical, gconTHIS_APP_NAME
