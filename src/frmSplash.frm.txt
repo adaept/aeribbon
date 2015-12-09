@@ -23,10 +23,10 @@ Begin Form
     Width =15120
     DatasheetFontHeight =11
     ItemSuffix =19
-    Left =3225
-    Top =2610
-    Right =23745
-    Bottom =12645
+    Left =2040
+    Top =1035
+    Right =17160
+    Bottom =12540
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xaaa2651a378ce440
@@ -35,6 +35,7 @@ Begin Form
         0xe973148ae07bea4e9608358b23e657c3
     End
     RecordSource ="qryVersionApp"
+    Caption ="SPLASH-AH-AAH"
     OnCurrent ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
@@ -13249,6 +13250,7 @@ Private Declare Function GetActiveWindow Lib "user32" () As Long
 Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long, ByVal dwNewLong As Long) As Long
 Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long) As Long
 Private Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As Long, ByVal crKey As Integer, ByVal bAlpha As Integer, ByVal dwFlags As Long) As Long
+Private Declare Function FindWindow Lib "user32.dll" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
 
 Private Const GWL_STYLE = (-16)
 Private Const WS_SYSMENU = &H80000
@@ -13257,8 +13259,8 @@ Private Const LWA_ALPHA = &H2
 Private Const GWL_EXSTYLE = &HFFEC
 
 Public zzzhWnd As Long
-Private Transparancy As Integer
-Private Running As Boolean
+Private intTransparency As Integer
+Private blnIsRunning As Boolean
 Private dEtime As Date
 
 ' Form Fade Ref: http://www.vbaexpress.com/forum/member.php?u=135
@@ -13377,21 +13379,21 @@ Private Sub Transparency()
     DoEvents
     MyTimer = Timer
     Do
-        Do
-            Debug.Print "MyTimer = " & MyTimer
-            Debug.Print "Timer = " & Timer
-        Loop While Timer - MyTimer < 0.07
+        'Do
+        '    Debug.Print "MyTimer = " & MyTimer
+        '    Debug.Print "Timer = " & Timer
+        'Loop While Timer - MyTimer < 0.07
         MyTimer = Timer
-        Transparancy = Transparancy - 1
-        If Transparancy < 0 Then
+        intTransparency = intTransparency - 1
+        If intTransparency < 0 Then
             '''Unload Me
-            DoCmd.Close
+            DoCmd.Close acForm, Me.Name, acSaveNo
         Else
-            '''Call SemiTransparent(Application.WorksheetFunction.Min(Transparancy, 99))
-            SemiTransparent Transparancy
+            '''Call SemiTransparent(Application.WorksheetFunction.Min(intTransparency, 99))
+            SemiTransparent intTransparency
         End If
         DoEvents
-    Loop While Running
+    Loop While blnIsRunning
 
 End Sub
 
@@ -13399,13 +13401,15 @@ Private Sub SemiTransparent(ByVal intLevel As Integer)
     Debug.Print "SemiTransparent"
 
     Dim lngWinIdx As Long
+    Dim hWnd As Long
 
     hWnd = GetActiveWindow()
     Debug.Print , "hWnd = " & hWnd
     lngWinIdx = GetWindowLong(hWnd, GWL_EXSTYLE)
+    Debug.Print , "lngWinIdx = " & lngWinIdx
     SetWindowLong hWnd, GWL_EXSTYLE, lngWinIdx Or WS_EX_LAYERED
     SetLayeredWindowAttributes hWnd, 0, (255 * intLevel) / 100, LWA_ALPHA
-    Stop
+    'Stop
 
 End Sub
 
@@ -13450,24 +13454,29 @@ Private Sub Form_Activate()
     Debug.Print "Form_Activate"
 End Sub
 
+Private Function WindowHandle(sTitle As String) As Long
+    WindowHandle = FindWindow(vbNullString, sTitle)
+End Function
+
 Private Sub Form_Current()
     Debug.Print "Form_Current"
+    Debug.Print , "WindowHandle = " & WindowHandle("SPLASH-AH-AAH")
 
     If mblnFADE Then
         ' Do not use form timer for fading
         Me.TimerInterval = 0
 '''        RemoveSysMenu
 
-        mlngPauseTime = 5       ' Set duration.
-        mlngStart = Timer       ' Set start time.
-        Transparancy = 99
+        mlngPauseTime = 5       ' Set duration
+        mlngStart = Timer       ' Set start time
+        intTransparency = 99
 
         SemiTransparent 99
         DoEvents
 
         Do While Timer < mlngStart + mlngPauseTime
-            DoEvents            ' Yield to other processes.
-            Running = True
+            DoEvents            ' Yield to other processes
+            blnIsRunning = True
             Transparency
         Loop
 
@@ -13484,6 +13493,7 @@ Private Sub Form_Load()
 '       05/03/2007 - Remove gblnClockOn. cmd30 now used
 '       02/15/2010 - Modify for aeChart
 '       12/06/2015 - Modify to use transparency in Access
+Exit Sub
 
     Debug.Print "Form_Load"
     On Error GoTo PROC_ERR
@@ -13558,7 +13568,7 @@ End Sub
 Private Sub imgSplash_Click()
     Debug.Print "imgSplash_Click"
     If mblnFADE Then
-        Running = False
+        blnIsRunning = False
         DoCmd.Close
     End If
     mblnClose = True
