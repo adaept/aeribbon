@@ -23,10 +23,10 @@ Begin Form
     Width =15120
     DatasheetFontHeight =11
     ItemSuffix =19
-    Left =2040
-    Top =1035
-    Right =17160
-    Bottom =12540
+    Left =3225
+    Top =2430
+    Right =28545
+    Bottom =15345
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xaaa2651a378ce440
@@ -13270,11 +13270,12 @@ Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal lngMilliSeconds As Long)
 
 Private Const mintTIMERINTERVAL = 10
 Private Const mblnDISABLESHIFT = False
-Private Const mblnFADE = False
+Private Const mblnFADE = True
 Private mblnClose As Boolean
 
 Public Function IsDeveloper() As Boolean
 ' Allow only developers to use the shift key during startup
+    On Error GoTo 0
     Debug.Print "IsDeveloper"
 
     Dim UserName As String
@@ -13344,19 +13345,23 @@ PROC_ERR:
 End Function
 
 Private Sub DebugStart()
+    On Error GoTo 0
     Application.SetOption "Error Trapping", 0
 End Sub
 
 Private Sub SafeStart()
+    On Error GoTo 0
     Application.SetOption "Error Trapping", 1
 End Sub
 
 Private Sub UnhandledStart()
+    On Error GoTo 0
     Application.SetOption "Error Trapping", 2
 End Sub
 
 Private Function GetErrorTrappingOption() As String
 ' Ref: http://www.fmsinc.com/tpapers/vbacode/debug.asp
+    On Error GoTo 0
     Debug.Print "GetErrorTrappingOption"
 
     Dim strSetting As String
@@ -13372,6 +13377,7 @@ Private Function GetErrorTrappingOption() As String
 End Function
 
 Private Sub Transparency()
+    On Error GoTo 0
     Debug.Print "Transparency"
 
     Dim MyTimer As Double
@@ -13398,6 +13404,7 @@ Private Sub Transparency()
 End Sub
 
 Private Sub SemiTransparent(ByVal intLevel As Integer)
+    On Error GoTo 0
     Debug.Print "SemiTransparent"
 
     Dim lngWinIdx As Long
@@ -13434,10 +13441,10 @@ Private Sub RemoveSysMenu(Optional ByVal lngHwnd As Variant)
     lwnd_style = lwnd_style And (Not WS_SYSMENU)
     lRet = SetWindowLong(hWnd, GWL_STYLE, lwnd_style)
     lRet = DrawMenuBar(hWnd)
-    Debug.Print "RemoveSysMenu End Sub"
 End Sub
 
 Private Sub MakeSysMenuDefaultAgain()
+    On Error GoTo 0
     Debug.Print "MakeSysMenuDefaultAgain"
     Dim lRet As Long
     Dim hWnd As Long
@@ -13450,17 +13457,20 @@ Private Sub MakeSysMenuDefaultAgain()
 End Sub
 
 Private Sub Form_Activate()
+    On Error GoTo 0
     ' NOTE: Activate/Deactivate events do not happen for popup form
     Debug.Print "Form_Activate"
 End Sub
 
-Private Function WindowHandle(sTitle As String) As Long
-    WindowHandle = FindWindow(vbNullString, sTitle)
+Private Function GetWindowHandle(sTitle As String) As Long
+    On Error GoTo 0
+    GetWindowHandle = FindWindow(vbNullString, sTitle)
 End Function
 
 Private Sub Form_Current()
+    On Error GoTo 0
     Debug.Print "Form_Current"
-    Debug.Print , "WindowHandle = " & WindowHandle("SPLASH-AH-AAH")
+    Debug.Print , "GetWindowHandle = " & GetWindowHandle("SPLASH-AH-AAH")
 
     If mblnFADE Then
         ' Do not use form timer for fading
@@ -13493,7 +13503,7 @@ Private Sub Form_Load()
 '       05/03/2007 - Remove gblnClockOn. cmd30 now used
 '       02/15/2010 - Modify for aeChart
 '       12/06/2015 - Modify to use transparency in Access
-Exit Sub
+'''Exit Sub
 
     Debug.Print "Form_Load"
     On Error GoTo PROC_ERR
@@ -13566,6 +13576,7 @@ PROC_ERR:
 End Sub
 
 Private Sub imgSplash_Click()
+    On Error GoTo 0
     Debug.Print "imgSplash_Click"
     If mblnFADE Then
         blnIsRunning = False
@@ -13575,6 +13586,7 @@ Private Sub imgSplash_Click()
 End Sub
 
 Private Sub CheckDataVersion()
+    On Error GoTo 0
     Debug.Print "CheckDataVersion"
     If (Me.txtDbVersion.Value <> Me.txtExpectedDbVersion.Value) Then
         MsgBox "Application expecting Database Version " & Me.txtExpectedDbVersion.Value & vbCrLf & _

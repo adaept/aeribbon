@@ -66,7 +66,7 @@ End Function
 ' %014 -
 ' %013 -
 ' %012 -
-' %011 -
+' %011 - Run-time error 2585 in Transparency - need to explicitly target the correct window
 ' %009 - Update code to use standard naming protocol
 ' %008 - Debug fade code for splash form
 ' %006 - Load app logo from attachment table into splash form
@@ -80,7 +80,7 @@ End Function
 '=============================================================================================================================
 '
 '
-'20151208 v004 -
+'20151210 v004 -
     ' FIXED - %010 - Use function to get handle for splash form in the current event
     ' FIXED - %007 - Add code to allow switch between fade and no fade
 '20151203 v003 -
