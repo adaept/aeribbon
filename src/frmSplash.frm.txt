@@ -23,10 +23,10 @@ Begin Form
     Width =15120
     DatasheetFontHeight =11
     ItemSuffix =19
-    Left =3225
-    Top =2430
-    Right =28545
-    Bottom =15345
+    Left =6840
+    Top =1320
+    Right =21960
+    Bottom =12825
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xaaa2651a378ce440
@@ -13181,7 +13181,6 @@ Begin Form
                     End
                 End
                 Begin TextBox
-                    Visible = NotDefault
                     Locked = NotDefault
                     TabStop = NotDefault
                     OverlapFlags =247
@@ -13196,6 +13195,7 @@ Begin Form
                     BorderColor =16777215
                     ForeColor =8355711
                     Name ="txtErrorTrapping"
+                    ControlSource ="=GetErrorTrappingOption()"
                     GUID = Begin
                         0xd07114d19cc88b4fb3636ebf367a18e8
                     End
@@ -13245,12 +13245,13 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private Declare Function DrawMenuBar Lib "user32" (ByVal hWnd As Long) As Long
-Private Declare Function GetActiveWindow Lib "user32" () As Long
-Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long, ByVal dwNewLong As Long) As Long
-Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long) As Long
-Private Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As Long, ByVal crKey As Integer, ByVal bAlpha As Integer, ByVal dwFlags As Long) As Long
-Private Declare Function FindWindow Lib "user32.dll" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
+Private Declare PtrSafe Function DrawMenuBar Lib "user32" (ByVal hWnd As Long) As Long
+Private Declare PtrSafe Function GetActiveWindow Lib "user32" () As Long
+Private Declare PtrSafe Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long, ByVal dwNewLong As Long) As Long
+Private Declare PtrSafe Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long) As Long
+Private Declare PtrSafe Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As Long, ByVal crKey As Integer, ByVal bAlpha As Integer, ByVal dwFlags As Long) As Long
+Private Declare PtrSafe Function FindWindow Lib "user32.dll" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
+Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
 Private Const GWL_STYLE = (-16)
 Private Const WS_SYSMENU = &H80000
@@ -13258,20 +13259,18 @@ Private Const WS_EX_LAYERED = &H80000
 Private Const LWA_ALPHA = &H2
 Private Const GWL_EXSTYLE = &HFFEC
 
-Public zzzhWnd As Long
 Private intTransparency As Integer
 Private blnIsRunning As Boolean
 Private dEtime As Date
 
-' Form Fade Ref: http://www.vbaexpress.com/forum/member.php?u=135
 Private mlngStart As Long
 Private mlngPauseTime As Integer
-Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal lngMilliSeconds As Long)
 
 Private Const mintTIMERINTERVAL = 10
 Private Const mblnDISABLESHIFT = False
 Private Const mblnFADE = True
 Private mblnClose As Boolean
+Private mlngHwnd As Long
 
 Public Function IsDeveloper() As Boolean
 ' Allow only developers to use the shift key during startup
@@ -13377,25 +13376,27 @@ Private Function GetErrorTrappingOption() As String
 End Function
 
 Private Sub Transparency()
+' Form Fade Ref: http://www.vbaexpress.com/forum/member.php?u=135
     On Error GoTo 0
     Debug.Print "Transparency"
 
-    Dim MyTimer As Double
+    'Dim MyTimer As Double
 
-    DoEvents
-    MyTimer = Timer
+    'DoEvents
+    'MyTimer = Timer
     Do
         'Do
         '    Debug.Print "MyTimer = " & MyTimer
         '    Debug.Print "Timer = " & Timer
-        'Loop While Timer - MyTimer < 0.07
-        MyTimer = Timer
+        '    Debug.Print "Timer - MyTimer = " & Timer - MyTimer
+        'Loop While Timer - MyTimer < 0.04
+        'MyTimer = Timer
+        Sleep 10
         intTransparency = intTransparency - 1
+        Debug.Print "intTransparency = " & intTransparency
         If intTransparency < 0 Then
-            '''Unload Me
             DoCmd.Close acForm, Me.Name, acSaveNo
         Else
-            '''Call SemiTransparent(Application.WorksheetFunction.Min(intTransparency, 99))
             SemiTransparent intTransparency
         End If
         DoEvents
@@ -13408,14 +13409,14 @@ Private Sub SemiTransparent(ByVal intLevel As Integer)
     Debug.Print "SemiTransparent"
 
     Dim lngWinIdx As Long
-    Dim hWnd As Long
+    '''Dim hWnd As Long
 
-    hWnd = GetActiveWindow()
-    Debug.Print , "hWnd = " & hWnd
-    lngWinIdx = GetWindowLong(hWnd, GWL_EXSTYLE)
+    '''hWnd = GetActiveWindow()
+    '''Debug.Print , "hWnd = " & hWnd
+    lngWinIdx = GetWindowLong(mlngHwnd, GWL_EXSTYLE)
     Debug.Print , "lngWinIdx = " & lngWinIdx
-    SetWindowLong hWnd, GWL_EXSTYLE, lngWinIdx Or WS_EX_LAYERED
-    SetLayeredWindowAttributes hWnd, 0, (255 * intLevel) / 100, LWA_ALPHA
+    SetWindowLong mlngHwnd, GWL_EXSTYLE, lngWinIdx Or WS_EX_LAYERED
+    SetLayeredWindowAttributes mlngHwnd, 0, (255 * intLevel) / 100, LWA_ALPHA
     'Stop
 
 End Sub
@@ -13470,7 +13471,15 @@ End Function
 Private Sub Form_Current()
     On Error GoTo 0
     Debug.Print "Form_Current"
-    Debug.Print , "GetWindowHandle = " & GetWindowHandle("SPLASH-AH-AAH")
+    mlngHwnd = GetWindowHandle("SPLASH-AH-AAH")
+    Debug.Print , "mlngHwnd = " & mlngHwnd
+    'Stop
+
+If Application.SysCmd(acSysCmdGetObjectState, acForm, "frmSplash") = acObjStateOpen Then
+MsgBox "frmSplash is open"
+Else
+MsgBox "frmSplash is NOT open"
+End If
 
     If mblnFADE Then
         ' Do not use form timer for fading
@@ -13507,6 +13516,10 @@ Private Sub Form_Load()
 
     Debug.Print "Form_Load"
     On Error GoTo PROC_ERR
+
+    DoCmd.SelectObject acForm, Me.Name
+    Me.Repaint
+    DoEvents
 
     If mblnDISABLESHIFT Then DisableShiftKey
 

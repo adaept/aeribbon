@@ -65,7 +65,6 @@ End Function
 ' %015 -
 ' %014 -
 ' %013 -
-' %012 -
 ' %011 - Run-time error 2585 in Transparency - need to explicitly target the correct window
 ' %009 - Update code to use standard naming protocol
 ' %008 - Debug fade code for splash form
@@ -81,6 +80,7 @@ End Function
 '
 '
 '20151210 v004 -
+    ' FIXED - %012 - Form does not display before running code, Ref: https://bytes.com/topic/access/answers/449160-how-get-form-display-first-then-run-code-open
     ' FIXED - %010 - Use function to get handle for splash form in the current event
     ' FIXED - %007 - Add code to allow switch between fade and no fade
 '20151203 v003 -
