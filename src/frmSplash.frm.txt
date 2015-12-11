@@ -13376,21 +13376,11 @@ Private Function GetErrorTrappingOption() As String
 End Function
 
 Private Sub Transparency()
-' Form Fade Ref: http://www.vbaexpress.com/forum/member.php?u=135
+' Ref: http://www.vbaexpress.com/forum/member.php?u=135
     On Error GoTo 0
     Debug.Print "Transparency"
 
-    'Dim MyTimer As Double
-
-    'DoEvents
-    'MyTimer = Timer
     Do
-        'Do
-        '    Debug.Print "MyTimer = " & MyTimer
-        '    Debug.Print "Timer = " & Timer
-        '    Debug.Print "Timer - MyTimer = " & Timer - MyTimer
-        'Loop While Timer - MyTimer < 0.04
-        'MyTimer = Timer
         Sleep 10
         intTransparency = intTransparency - 1
         Debug.Print "intTransparency = " & intTransparency
@@ -13409,10 +13399,6 @@ Private Sub SemiTransparent(ByVal intLevel As Integer)
     Debug.Print "SemiTransparent"
 
     Dim lngWinIdx As Long
-    '''Dim hWnd As Long
-
-    '''hWnd = GetActiveWindow()
-    '''Debug.Print , "hWnd = " & hWnd
     lngWinIdx = GetWindowLong(mlngHwnd, GWL_EXSTYLE)
     Debug.Print , "lngWinIdx = " & lngWinIdx
     SetWindowLong mlngHwnd, GWL_EXSTYLE, lngWinIdx Or WS_EX_LAYERED
@@ -13512,7 +13498,6 @@ Private Sub Form_Load()
 '       05/03/2007 - Remove gblnClockOn. cmd30 now used
 '       02/15/2010 - Modify for aeChart
 '       12/06/2015 - Modify to use transparency in Access
-'''Exit Sub
 
     Debug.Print "Form_Load"
     On Error GoTo PROC_ERR
