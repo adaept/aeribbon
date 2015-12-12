@@ -22,8 +22,8 @@ Public Const THE_BACK_END_XML_DATA_FOLDER = "NONE"         ' ".\srcbe\xmldata\"
 'Public Const THE_BACK_END_XML_FOLDER = "C:\THE\DATABASE\PATH\srcbe\xml\"            ' ".\srcbe\xml\"
 'Public Const THE_BACK_END_XML_DATA_FOLDER = "C:\THE\DATABASE\PATH\srcbe\xmldata\"   ' ".\srcbe\xmldata\
 '
-Public Const gconTHIS_APP_VERSION As String = "0.0.4"
-Public Const gconTHIS_APP_VERSION_DATE = "December 11, 2015"
+Public Const gconTHIS_APP_VERSION As String = "0.0.5"
+Public Const gconTHIS_APP_VERSION_DATE = "December 12, 2015"
 Public Const gconTHIS_APP_NAME = "aeribbon"
 
 Public Function getMyVersion() As String
