@@ -23,10 +23,10 @@ Begin Form
     Width =15120
     DatasheetFontHeight =11
     ItemSuffix =19
-    Left =6840
-    Top =1320
-    Right =21960
-    Bottom =12825
+    Left =3225
+    Top =2430
+    Right =28545
+    Bottom =15345
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xaaa2651a378ce440
@@ -13268,7 +13268,8 @@ Private mlngPauseTime As Integer
 
 Private Const mintTIMERINTERVAL = 10
 Private Const mblnDISABLESHIFT = False
-Private Const mblnFADE = True
+Private Const mblnFADE = False
+Private mblnFADESTATE As Boolean
 Private mblnClose As Boolean
 Private mlngHwnd As Long
 
@@ -13383,28 +13384,29 @@ Private Sub Transparency()
     Do
         Sleep 10
         intTransparency = intTransparency - 1
-        Debug.Print "intTransparency = " & intTransparency
+        'Debug.Print "intTransparency = " & intTransparency
         If intTransparency < 0 Then
-            DoCmd.Close acForm, Me.Name, acSaveNo
+            blnIsRunning = False
+            '''imgSplash_Click
         Else
             SemiTransparent intTransparency
         End If
         DoEvents
     Loop While blnIsRunning
+    Me.TimerInterval = 1
+    '''DoCmd.Close acForm, Me.Name, acSaveNo
 
 End Sub
 
 Private Sub SemiTransparent(ByVal intLevel As Integer)
     On Error GoTo 0
-    Debug.Print "SemiTransparent"
-
+    'Debug.Print "SemiTransparent"
     Dim lngWinIdx As Long
     lngWinIdx = GetWindowLong(mlngHwnd, GWL_EXSTYLE)
-    Debug.Print , "lngWinIdx = " & lngWinIdx
+    'Debug.Print , "lngWinIdx = " & lngWinIdx
     SetWindowLong mlngHwnd, GWL_EXSTYLE, lngWinIdx Or WS_EX_LAYERED
     SetLayeredWindowAttributes mlngHwnd, 0, (255 * intLevel) / 100, LWA_ALPHA
     'Stop
-
 End Sub
 
 Private Sub RemoveSysMenu(Optional ByVal lngHwnd As Variant)
@@ -13451,6 +13453,7 @@ End Sub
 
 Private Function GetWindowHandle(sTitle As String) As Long
     On Error GoTo 0
+    Debug.Print "GetWindowHandle"
     GetWindowHandle = FindWindow(vbNullString, sTitle)
 End Function
 
@@ -13461,15 +13464,15 @@ Private Sub Form_Current()
     Debug.Print , "mlngHwnd = " & mlngHwnd
     'Stop
 
-If Application.SysCmd(acSysCmdGetObjectState, acForm, "frmSplash") = acObjStateOpen Then
-MsgBox "frmSplash is open"
-Else
-MsgBox "frmSplash is NOT open"
-End If
+    'If Application.SysCmd(acSysCmdGetObjectState, acForm, "frmSplash") = acObjStateOpen Then
+    '    MsgBox "frmSplash is open"
+    'Else
+    '    MsgBox "frmSplash is NOT open"
+    'End If
 
-    If mblnFADE Then
-        ' Do not use form timer for fading
-        Me.TimerInterval = 0
+    If mblnFADESTATE Then
+        '''' Do not use form timer for fading
+        '''Me.TimerInterval = 0
 '''        RemoveSysMenu
 
         mlngPauseTime = 5       ' Set duration
@@ -13483,24 +13486,22 @@ End If
             DoEvents            ' Yield to other processes
             blnIsRunning = True
             Transparency
+            If Not blnIsRunning Then Exit Do
         Loop
 
-        DoCmd.Close
+        mblnClose = True
+        '''DoCmd.Close
         DoEvents
     End If
 End Sub
 
 Private Sub Form_Load()
-' Reference: Microsoft Knowledge Base Article Q213774, XL2000 - How to Create a Startup Screen with a UserForm
-' Who:  Peter Ennis
-' Date: 04/06/2007 - Add error checking code to track down 1004 on splash form close
-'       04/15/2007 - Use gblnClockOn for starting the clock
-'       05/03/2007 - Remove gblnClockOn. cmd30 now used
-'       02/15/2010 - Modify for aeChart
-'       12/06/2015 - Modify to use transparency in Access
-
     Debug.Print "Form_Load"
     On Error GoTo PROC_ERR
+
+    'If CurrentProject.AllForms(Me.Name).IsLoaded Then
+    '    MsgBox "The form is already open.", vbInformation + vbOKOnly, Me.Name
+    'End If
 
     DoCmd.SelectObject acForm, Me.Name
     Me.Repaint
@@ -13534,7 +13535,11 @@ Private Sub Form_Load()
     Me.txtGetMyDate = getMyDate()
     Me.txtGetMyProject = getMyProject()
 
-    If Not mblnFADE Then Me.TimerInterval = mintTIMERINTERVAL
+    mblnFADESTATE = mblnFADE
+    If mblnFADESTATE Then
+    Else
+        Me.TimerInterval = mintTIMERINTERVAL
+    End If
 
 PROC_EXIT:
     Exit Sub
@@ -13553,15 +13558,16 @@ Private Sub Form_Timer()
     Debug.Print "Form_Timer"
     On Error GoTo PROC_ERR
 
-    If mblnFADE Then Exit Sub
-
     Dim dteTime As Date
     dteTime = DateAdd("s", mintTIMERINTERVAL, Now)
 
-    Do
-        Sleep 100
-        DoEvents
-    Loop Until Now >= dteTime Or mblnClose
+    If mblnFADESTATE Then
+    Else
+        Do
+            Sleep 100
+            DoEvents
+        Loop Until Now >= dteTime Or mblnClose
+    End If
 
 PROC_EXIT:
     DoCmd.Close
@@ -13576,9 +13582,10 @@ End Sub
 Private Sub imgSplash_Click()
     On Error GoTo 0
     Debug.Print "imgSplash_Click"
-    If mblnFADE Then
+    If mblnFADESTATE Then
         blnIsRunning = False
-        DoCmd.Close
+        mblnFADESTATE = False
+        '''DoCmd.Close
     End If
     mblnClose = True
 End Sub
