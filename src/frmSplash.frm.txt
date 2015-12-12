@@ -26,7 +26,7 @@ Begin Form
     Left =3225
     Top =2430
     Right =28545
-    Bottom =15345
+    Bottom =15015
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xaaa2651a378ce440
@@ -13387,14 +13387,12 @@ Private Sub Transparency()
         'Debug.Print "intTransparency = " & intTransparency
         If intTransparency < 0 Then
             blnIsRunning = False
-            '''imgSplash_Click
         Else
             SemiTransparent intTransparency
         End If
         DoEvents
     Loop While blnIsRunning
     Me.TimerInterval = 1
-    '''DoCmd.Close acForm, Me.Name, acSaveNo
 
 End Sub
 
@@ -13406,7 +13404,6 @@ Private Sub SemiTransparent(ByVal intLevel As Integer)
     'Debug.Print , "lngWinIdx = " & lngWinIdx
     SetWindowLong mlngHwnd, GWL_EXSTYLE, lngWinIdx Or WS_EX_LAYERED
     SetLayeredWindowAttributes mlngHwnd, 0, (255 * intLevel) / 100, LWA_ALPHA
-    'Stop
 End Sub
 
 Private Sub RemoveSysMenu(Optional ByVal lngHwnd As Variant)
@@ -13462,7 +13459,6 @@ Private Sub Form_Current()
     Debug.Print "Form_Current"
     mlngHwnd = GetWindowHandle("SPLASH-AH-AAH")
     Debug.Print , "mlngHwnd = " & mlngHwnd
-    'Stop
 
     'If Application.SysCmd(acSysCmdGetObjectState, acForm, "frmSplash") = acObjStateOpen Then
     '    MsgBox "frmSplash is open"
@@ -13471,8 +13467,6 @@ Private Sub Form_Current()
     'End If
 
     If mblnFADESTATE Then
-        '''' Do not use form timer for fading
-        '''Me.TimerInterval = 0
 '''        RemoveSysMenu
 
         mlngPauseTime = 5       ' Set duration
@@ -13490,7 +13484,6 @@ Private Sub Form_Current()
         Loop
 
         mblnClose = True
-        '''DoCmd.Close
         DoEvents
     End If
 End Sub
@@ -13585,7 +13578,6 @@ Private Sub imgSplash_Click()
     If mblnFADESTATE Then
         blnIsRunning = False
         mblnFADESTATE = False
-        '''DoCmd.Close
     End If
     mblnClose = True
 End Sub
