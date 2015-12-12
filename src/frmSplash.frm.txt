@@ -13181,6 +13181,7 @@ Begin Form
                     End
                 End
                 Begin TextBox
+                    Visible = NotDefault
                     Locked = NotDefault
                     TabStop = NotDefault
                     OverlapFlags =247
@@ -13268,10 +13269,11 @@ Private mlngPauseTime As Integer
 
 Private Const mintTIMERINTERVAL = 10
 Private Const mblnDISABLESHIFT = False
-Private Const mblnFADE = False
+Private Const mblnFADE = True
 Private mblnFADESTATE As Boolean
 Private mblnClose As Boolean
 Private mlngHwnd As Long
+Private Const mblnErrorTrapping = False
 
 Public Function IsDeveloper() As Boolean
 ' Allow only developers to use the shift key during startup
@@ -13382,7 +13384,7 @@ Private Sub Transparency()
     Debug.Print "Transparency"
 
     Do
-        Sleep 10
+        Sleep 5
         intTransparency = intTransparency - 1
         'Debug.Print "intTransparency = " & intTransparency
         If intTransparency < 0 Then
@@ -13390,7 +13392,6 @@ Private Sub Transparency()
         Else
             SemiTransparent intTransparency
         End If
-        DoEvents
     Loop While blnIsRunning
     Me.TimerInterval = 1
 
@@ -13404,6 +13405,7 @@ Private Sub SemiTransparent(ByVal intLevel As Integer)
     'Debug.Print , "lngWinIdx = " & lngWinIdx
     SetWindowLong mlngHwnd, GWL_EXSTYLE, lngWinIdx Or WS_EX_LAYERED
     SetLayeredWindowAttributes mlngHwnd, 0, (255 * intLevel) / 100, LWA_ALPHA
+    DoEvents
 End Sub
 
 Private Sub RemoveSysMenu(Optional ByVal lngHwnd As Variant)
@@ -13507,7 +13509,7 @@ Private Sub Form_Load()
     Dim blnDeveloper As Boolean
     blnDeveloper = IsDeveloper
     'blnDeveloper = False
-    If blnDeveloper Then
+    If blnDeveloper And mblnErrorTrapping Then
         Me.txtErrorTrapping.visible = True
     Else
         Me.txtErrorTrapping.visible = False
@@ -13575,10 +13577,12 @@ End Sub
 Private Sub imgSplash_Click()
     On Error GoTo 0
     Debug.Print "imgSplash_Click"
+    DoEvents
     If mblnFADESTATE Then
         blnIsRunning = False
         mblnFADESTATE = False
     End If
+    Sleep 100
     mblnClose = True
 End Sub
 

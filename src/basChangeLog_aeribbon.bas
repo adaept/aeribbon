@@ -67,7 +67,6 @@ End Function
 ' %018 -
 ' %017 -
 ' %016 -
-' %015 -
 ' %014 - Test RemoveSysMenu and related if splash form is modal with a menubar
 ' %013 - Fade causes flickering, test using repaint to see if it improves
 ' %009 - Update code to use standard naming protocol
@@ -83,6 +82,7 @@ End Function
 '
 '
 '20151211 v004 -
+    ' FIXED - %015 - Repeated click on splash image with fade crashes access if it catches the form still loaded
     ' FIXED - %012 - Form does not display before running code, Ref: https://bytes.com/topic/access/answers/449160-how-get-form-display-first-then-run-code-open
     ' FIXED - %011 - Run-time error 2585 in Transparency - need to explicitly target the correct window
     ' FIXED - %010 - Use function to get handle for splash form in the current event
