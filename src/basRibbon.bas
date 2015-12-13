@@ -75,10 +75,27 @@ Public Sub GetTitle(ByVal rcontrol As IRibbonControl, ByRef title)
     End Select
 End Sub
 
+Private Function IsOpen(ByVal strFormName As String) As Boolean
+    IsOpen = False
+    ' Is form open?
+    If SysCmd(acSysCmdGetObjectState, acForm, strFormName) <> 0 Then
+        ' If so make sure it is not in design view
+        If Forms(strFormName).CurrentView <> 0 Then
+            IsOpen = True
+        End If
+    End If
+    Exit Function
+ End Function
+
 Public Sub OnActionButton(ByVal rcontrol As IRibbonControl)
     Select Case rcontrol.Id
         Case "btn1"
-            DoCmd.OpenForm "frmSplash"
+            DoEvents
+            If IsOpen("frmSplash") Then
+                MsgBox "frmSplash is already open!", vbCritical, gconTHIS_APP_NAME
+            Else
+                DoCmd.OpenForm "frmSplash"
+            End If
         Case Else
             MsgBox "Button """ & rcontrol.Id & """ clicked!", vbInformation, gconTHIS_APP_NAME
     End Select

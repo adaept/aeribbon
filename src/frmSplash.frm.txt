@@ -3,13 +3,9 @@ VersionRequired =20
 Begin Form
     PopUp = NotDefault
     RecordSelectors = NotDefault
-    MaxButton = NotDefault
-    MinButton = NotDefault
-    ControlBox = NotDefault
     ShortcutMenu = NotDefault
     AutoCenter = NotDefault
     NavigationButtons = NotDefault
-    CloseButton = NotDefault
     DividingLines = NotDefault
     DefaultView =0
     ScrollBars =0
@@ -18,15 +14,16 @@ Begin Form
     PictureAlignment =2
     PictureSizeMode =3
     DatasheetGridlinesBehavior =3
+    Cycle =1
     GridX =24
     GridY =24
     Width =15120
     DatasheetFontHeight =11
     ItemSuffix =19
     Left =3225
-    Top =2430
-    Right =28545
-    Bottom =15015
+    Top =2610
+    Right =18345
+    Bottom =14115
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xaaa2651a378ce440
@@ -56,7 +53,7 @@ Begin Form
     DatasheetAlternateBackColor =16053492
     PictureSizeMode =3
     DatasheetGridlinesColor12 =15062992
-    RibbonName ="SVIP7"
+    RibbonName ="adaept"
     FitToScreen =1
     PrtDevModeW = Begin
     End
@@ -13384,7 +13381,7 @@ Private Sub Transparency()
     Debug.Print "Transparency"
 
     Do
-        Sleep 5
+        Sleep 40
         intTransparency = intTransparency - 1
         'Debug.Print "intTransparency = " & intTransparency
         If intTransparency < 0 Then

@@ -67,8 +67,6 @@ End Function
 ' %018 -
 ' %017 -
 ' %016 -
-' %014 - Test RemoveSysMenu and related if splash form is modal with a menubar
-' %013 - Fade causes flickering, test using repaint to see if it improves
 ' %009 - Update code to use standard naming protocol
 ' %006 - Load app logo from attachment table into splash form
 ' %005 - Document changes from blank accdb to minimal app template
@@ -81,6 +79,10 @@ End Function
 '=============================================================================================================================
 '
 '
+'20151212 v005 -
+    ' WONTFIX - %014 - Test RemoveSysMenu and related if splash form popup has a menubar - Not needed if popup is required ?
+    ' FIXED - %013 - Fade causes flickering, test using repaint to see if it improves
+    '           repaint does not help, but fade is ok but fast on Dell laptop so change sleep to 10
 '20151211 v004 -
     ' FIXED - %015 - Repeated click on splash image with fade crashes access if it catches the form still loaded
     ' FIXED - %012 - Form does not display before running code, Ref: https://bytes.com/topic/access/answers/449160-how-get-form-display-first-then-run-code-open
