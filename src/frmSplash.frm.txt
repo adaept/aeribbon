@@ -22,8 +22,8 @@ Begin Form
     ItemSuffix =19
     Left =3225
     Top =2610
-    Right =18345
-    Bottom =14115
+    Right =23745
+    Bottom =12315
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xaaa2651a378ce440
@@ -13243,34 +13243,29 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private Declare PtrSafe Function DrawMenuBar Lib "user32" (ByVal hWnd As Long) As Long
-Private Declare PtrSafe Function GetActiveWindow Lib "user32" () As Long
 Private Declare PtrSafe Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long, ByVal dwNewLong As Long) As Long
 Private Declare PtrSafe Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal lngWinIdx As Long) As Long
 Private Declare PtrSafe Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As Long, ByVal crKey As Integer, ByVal bAlpha As Integer, ByVal dwFlags As Long) As Long
 Private Declare PtrSafe Function FindWindow Lib "user32.dll" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
 Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
-Private Const GWL_STYLE = (-16)
-Private Const WS_SYSMENU = &H80000
 Private Const WS_EX_LAYERED = &H80000
 Private Const LWA_ALPHA = &H2
 Private Const GWL_EXSTYLE = &HFFEC
 
 Private intTransparency As Integer
 Private blnIsRunning As Boolean
-Private dEtime As Date
-
 Private mlngStart As Long
 Private mlngPauseTime As Integer
 
 Private Const mintTIMERINTERVAL = 10
+Private Const mintSLEEPDELAY = 40
 Private Const mblnDISABLESHIFT = False
 Private Const mblnFADE = True
-Private mblnFADESTATE As Boolean
+Private Const mblnERRORTRAPPING = False
+Private mblnFadeState As Boolean
 Private mblnClose As Boolean
 Private mlngHwnd As Long
-Private Const mblnErrorTrapping = False
 
 Public Function IsDeveloper() As Boolean
 ' Allow only developers to use the shift key during startup
@@ -13381,7 +13376,7 @@ Private Sub Transparency()
     Debug.Print "Transparency"
 
     Do
-        Sleep 40
+        Sleep mintSLEEPDELAY
         intTransparency = intTransparency - 1
         'Debug.Print "intTransparency = " & intTransparency
         If intTransparency < 0 Then
@@ -13405,52 +13400,16 @@ Private Sub SemiTransparent(ByVal intLevel As Integer)
     DoEvents
 End Sub
 
-Private Sub RemoveSysMenu(Optional ByVal lngHwnd As Variant)
-' Ref: http://puremis.net/excel/code/062.shtml
-    On Error GoTo 0
-    Debug.Print "RemoveSysMenu"
-    Debug.Print , "lngHwnd = " & lngHwnd
-
-    Dim lRet As Long
-    Dim hWnd As Long
-    Dim lwnd_style As Long
-
-    If Not IsMissing(lngHwnd) Then
-        hWnd = lngHwnd
-    Else
-        hWnd = GetActiveWindow()
-        Debug.Print , "hWnd = " & hWnd
-    End If
-
-    lwnd_style = GetWindowLong(hWnd, GWL_STYLE)
-    lwnd_style = lwnd_style And (Not WS_SYSMENU)
-    lRet = SetWindowLong(hWnd, GWL_STYLE, lwnd_style)
-    lRet = DrawMenuBar(hWnd)
-End Sub
-
-Private Sub MakeSysMenuDefaultAgain()
-    On Error GoTo 0
-    Debug.Print "MakeSysMenuDefaultAgain"
-    Dim lRet As Long
-    Dim hWnd As Long
-    Dim lwnd_style As Long
-    hWnd = GetActiveWindow()
-    lwnd_style = GetWindowLong(hWnd, GWL_STYLE)
-    lwnd_style = lwnd_style Or WS_SYSMENU
-    lRet = SetWindowLong(hWnd, GWL_STYLE, lwnd_style)
-    lRet = DrawMenuBar(hWnd)
-End Sub
-
 Private Sub Form_Activate()
     On Error GoTo 0
     ' NOTE: Activate/Deactivate events do not happen for popup form
     Debug.Print "Form_Activate"
 End Sub
 
-Private Function GetWindowHandle(sTitle As String) As Long
+Private Function GetWindowHandle(strTitle As String) As Long
     On Error GoTo 0
     Debug.Print "GetWindowHandle"
-    GetWindowHandle = FindWindow(vbNullString, sTitle)
+    GetWindowHandle = FindWindow(vbNullString, strTitle)
 End Function
 
 Private Sub Form_Current()
@@ -13459,14 +13418,7 @@ Private Sub Form_Current()
     mlngHwnd = GetWindowHandle("SPLASH-AH-AAH")
     Debug.Print , "mlngHwnd = " & mlngHwnd
 
-    'If Application.SysCmd(acSysCmdGetObjectState, acForm, "frmSplash") = acObjStateOpen Then
-    '    MsgBox "frmSplash is open"
-    'Else
-    '    MsgBox "frmSplash is NOT open"
-    'End If
-
-    If mblnFADESTATE Then
-'''        RemoveSysMenu
+    If mblnFadeState Then
 
         mlngPauseTime = 5       ' Set duration
         mlngStart = Timer       ' Set start time
@@ -13506,7 +13458,7 @@ Private Sub Form_Load()
     Dim blnDeveloper As Boolean
     blnDeveloper = IsDeveloper
     'blnDeveloper = False
-    If blnDeveloper And mblnErrorTrapping Then
+    If blnDeveloper And mblnERRORTRAPPING Then
         Me.txtErrorTrapping.visible = True
     Else
         Me.txtErrorTrapping.visible = False
@@ -13527,8 +13479,8 @@ Private Sub Form_Load()
     Me.txtGetMyDate = getMyDate()
     Me.txtGetMyProject = getMyProject()
 
-    mblnFADESTATE = mblnFADE
-    If mblnFADESTATE Then
+    mblnFadeState = mblnFADE
+    If mblnFadeState Then
     Else
         Me.TimerInterval = mintTIMERINTERVAL
     End If
@@ -13553,7 +13505,7 @@ Private Sub Form_Timer()
     Dim dteTime As Date
     dteTime = DateAdd("s", mintTIMERINTERVAL, Now)
 
-    If mblnFADESTATE Then
+    If mblnFadeState Then
     Else
         Do
             Sleep 100
@@ -13575,9 +13527,9 @@ Private Sub imgSplash_Click()
     On Error GoTo 0
     Debug.Print "imgSplash_Click"
     DoEvents
-    If mblnFADESTATE Then
+    If mblnFadeState Then
         blnIsRunning = False
-        mblnFADESTATE = False
+        mblnFadeState = False
     End If
     Sleep 100
     mblnClose = True

@@ -160,7 +160,7 @@ Inherited: False;
 ---
 Name: StartUpShowDBWindow
 Type: dbBoolean
-Value: True
+Value: False
 Inherited: False;
 ---
 Name: StartUpShowStatusBar

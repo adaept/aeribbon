@@ -22,8 +22,8 @@ Public Const THE_BACK_END_XML_DATA_FOLDER = "NONE"         ' ".\srcbe\xmldata\"
 'Public Const THE_BACK_END_XML_FOLDER = "C:\THE\DATABASE\PATH\srcbe\xml\"            ' ".\srcbe\xml\"
 'Public Const THE_BACK_END_XML_DATA_FOLDER = "C:\THE\DATABASE\PATH\srcbe\xmldata\"   ' ".\srcbe\xmldata\
 '
-Public Const gconTHIS_APP_VERSION As String = "0.0.5"
-Public Const gconTHIS_APP_VERSION_DATE = "December 12, 2015"
+Public Const gconTHIS_APP_VERSION As String = "0.0.6"
+Public Const gconTHIS_APP_VERSION_DATE = "December 13, 2015"
 Public Const gconTHIS_APP_NAME = "aeribbon"
 
 Public Function getMyVersion() As String
@@ -66,7 +66,6 @@ End Function
 ' %019 -
 ' %018 -
 ' %017 -
-' %016 -
 ' %009 - Update code to use standard naming protocol
 ' %006 - Load app logo from attachment table into splash form
 ' %005 - Document changes from blank accdb to minimal app template
@@ -79,10 +78,12 @@ End Function
 '=============================================================================================================================
 '
 '
+'20151213 v006 -
+    ' FIXED - %016 - Relates to %103, remove unused code and defines
 '20151212 v005 -
     ' WONTFIX - %014 - Test RemoveSysMenu and related if splash form popup has a menubar - Not needed if popup is required ?
     ' FIXED - %013 - Fade causes flickering, test using repaint to see if it improves
-    '           repaint does not help, but fade is ok but fast on Dell laptop so change sleep to 10
+    '           repaint does not help, but fade is ok but fast on Dell laptop so changed sleep to 40
 '20151211 v004 -
     ' FIXED - %015 - Repeated click on splash image with fade crashes access if it catches the form still loaded
     ' FIXED - %012 - Form does not display before running code, Ref: https://bytes.com/topic/access/answers/449160-how-get-form-display-first-then-run-code-open

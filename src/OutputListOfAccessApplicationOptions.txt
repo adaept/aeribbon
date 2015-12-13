@@ -4,7 +4,7 @@
               2000          AllowFullMenus              True
               2000          AllowShortcutMenus          True
               2000          StartupForm                 frmSplash
-              2000          StartupShowDBWindow         True
+              2000          StartupShowDBWindow         False
               2000          StartupShowStatusBar        False
               2000          AllowBuiltInToolbars        True
               2000          AllowToolbarChanges         True

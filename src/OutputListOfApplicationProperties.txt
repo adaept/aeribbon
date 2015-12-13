@@ -30,7 +30,7 @@ NavPane Width: 215, 4, False;
 NavPane View By: 0, 4, False;
 NavPane Sort By: 1, 4, False;
 CustomRibbonID: adaept, 10, False;
-StartUpShowDBWindow: True, 1, False;
+StartUpShowDBWindow: False, 1, False;
 StartUpShowStatusBar: False, 1, False;
 AllowShortcutMenus: True, 1, False;
 AllowFullMenus: True, 1, False;

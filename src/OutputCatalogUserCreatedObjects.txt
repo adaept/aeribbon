@@ -8,7 +8,6 @@
 "Module","basChangeLog_aeribbon","DateCreated"
 "Module","basFormHelper","DateCreated"
 "Module","basRibbon","DateCreated"
-"Module","basTesting","DateCreated"
 "Query","qryVersionApp","DateCreated"
 "Query","qryVersionData","DateCreated"
 "Query","zzzqryCatalogUserCreatedObjects","DateCreated"
