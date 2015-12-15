@@ -65,7 +65,7 @@ End Function
 ' %020 -
 ' %019 -
 ' %018 -
-' %017 -
+' %017 - Add a form for loading a picture to the binary table
 ' %009 - Update code to use standard naming protocol
 ' %006 - Load app logo from attachment table into splash form
 ' %005 - Document changes from blank accdb to minimal app template

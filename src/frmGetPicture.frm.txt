@@ -1,0 +1,191 @@
+Version =20
+VersionRequired =20
+PublishOption =1
+Begin Form
+    DividingLines = NotDefault
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =8884
+    DatasheetFontHeight =11
+    ItemSuffix =1
+    Right =20325
+    Bottom =12585
+    DatasheetGridlinesColor =15132391
+    RecSrcDt = Begin
+        0x1f239f8a17aee440
+    End
+    GUID = Begin
+        0x6cb16947a32c2d49a1364359f576b9c3
+    End
+    Caption ="Get Picture"
+    DatasheetFontName ="Calibri"
+    PrtMip = Begin
+    End
+    PrtDevMode = Begin
+    End
+    PrtDevNames = Begin
+    End
+    AllowDatasheetView =0
+    AllowPivotTableView =0
+    AllowPivotChartView =0
+    AllowPivotChartView =0
+    FilterOnLoad =0
+    ShowPageMargins =0
+    DisplayOnSharePointSite =1
+    DatasheetAlternateBackColor =15921906
+    DatasheetGridlinesColor12 =0
+    FitToScreen =1
+    DatasheetBackThemeColorIndex =1
+    BorderThemeColorIndex =3
+    ThemeFontIndex =1
+    ForeThemeColorIndex =0
+    AlternateBackThemeColorIndex =1
+    AlternateBackShade =95.0
+    PrtDevModeW = Begin
+    End
+    PrtDevNamesW = Begin
+    End
+    NoSaveCTIWhenDisabled =1
+    Begin
+        Begin CommandButton
+            FontSize =11
+            FontWeight =400
+            FontName ="Calibri"
+            ForeThemeColorIndex =0
+            ForeTint =75.0
+            GridlineThemeColorIndex =1
+            GridlineShade =65.0
+            UseTheme =1
+            Shape =1
+            Gradient =12
+            BackThemeColorIndex =4
+            BackTint =60.0
+            BorderLineStyle =0
+            BorderColor =16777215
+            BorderThemeColorIndex =4
+            BorderTint =60.0
+            ThemeFontIndex =1
+            HoverThemeColorIndex =4
+            HoverTint =40.0
+            PressedThemeColorIndex =4
+            PressedShade =75.0
+            HoverForeThemeColorIndex =0
+            HoverForeTint =75.0
+            PressedForeThemeColorIndex =0
+            PressedForeTint =75.0
+        End
+        Begin TextBox
+            AddColon = NotDefault
+            FELineBreak = NotDefault
+            BorderLineStyle =0
+            LabelX =-1800
+            FontSize =11
+            FontName ="Calibri"
+            AsianLineBreak =1
+            BackThemeColorIndex =1
+            BorderThemeColorIndex =1
+            BorderShade =65.0
+            ThemeFontIndex =1
+            ForeThemeColorIndex =0
+            ForeTint =75.0
+            GridlineThemeColorIndex =1
+            GridlineShade =65.0
+        End
+        Begin Section
+            Height =7560
+            BackColor =15921906
+            Name ="Detail"
+            GUID = Begin
+                0xdb55251a90e8c24683891daf501e7060
+            End
+            AutoHeight =1
+            AlternateBackColor =15921906
+            AlternateBackThemeColorIndex =1
+            AlternateBackShade =95.0
+            BackThemeColorIndex =1
+            BackShade =95.0
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    Left =1440
+                    Top =900
+                    Height =540
+                    ForeColor =4210752
+                    Name ="cmdGetPicture"
+                    Caption ="Get Picture"
+                    OnClick ="[Event Procedure]"
+                    ControlTipText ="Find Next"
+                    GUID = Begin
+                        0x75a79045dad9a54cb1a754d221ed4443
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1440
+                    LayoutCachedTop =900
+                    LayoutCachedWidth =2880
+                    LayoutCachedHeight =1440
+                    BackColor =15123357
+                    BorderColor =15123357
+                    HoverColor =15652797
+                    PressedColor =11957550
+                    HoverForeColor =4210752
+                    PressedForeColor =4210752
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub cmdGetPicture_Click()
+' Ref: https://msdn.microsoft.com/en-us/library/office/ff835934.aspx
+
+    Dim fleDialog As Office.FileDialog
+    Dim varFile As String
+    Dim strFileTypes As String
+
+    With Application.FileDialog(DialogType:=msoFileDialogFilePicker)
+        .title = "Browse for " & "Picture File"
+        .Filters.Clear
+        .Filters.Add "JPG Picture", "*.JPG; *.JPEG"
+        .Filters.Add "PNG Picture", "*.PNG"
+        .Filters.Add "Bitmap Picture", "*.BMP"
+        .AllowMultiSelect = False
+        .InitialView = msoFileDialogViewDetails
+         Debug.Print ".InitialFileName = " & .InitialFileName
+        If .Show = True Then
+            'Loop through each file selected and add it to the list box.
+            'For Each varFile In .SelectedItems
+                '''.FileList.AddItem varFile
+            'Next
+        Else
+            MsgBox "Cancel was clicked.", vbInformation, gconTHIS_APP_NAME
+        End If
+        
+    End With
+
+    If varFile <> "" Then
+'        If 'the selected file is loaded successfully' Then
+            MsgBox "The picture was attached in ""tblRibbonPix"".", vbInformation, gconTHIS_APP_NAME
+'        End If
+    End If
+
+End Sub
+
+Private Sub cmdClose_Click()
+    DoCmd.Close acForm, Me.Name, acSaveNo
+End Sub

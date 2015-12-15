@@ -21,9 +21,9 @@ Begin Form
     DatasheetFontHeight =11
     ItemSuffix =19
     Left =3225
-    Top =2610
-    Right =23745
-    Bottom =12315
+    Top =2430
+    Right =23550
+    Bottom =15015
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xaaa2651a378ce440
@@ -13515,13 +13515,14 @@ Private Sub Form_Timer()
 
 PROC_EXIT:
     DoCmd.Close
-    'DoCmd.OpenForm "MY FORM TO OPEN"
+    DoCmd.OpenForm "frmGetPicture"
     Exit Sub
 
 PROC_ERR:
     Resume PROC_EXIT
 
 End Sub
+
 
 Private Sub imgSplash_Click()
     On Error GoTo 0
